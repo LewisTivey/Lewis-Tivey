@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tivey — Official</title>
+  <meta name="description" content="Tivey — music, videos, gallery, and info." />
+
+  <style>
+    /* === Your trademark font ===
+       Put this file here: fonts/Eordeoghlakat.woff2
+       If you don't have it yet, the site still works (falls back). */
+    @font-face {
+      font-family: "Eordeoghlakat";
+      src: url("fonts/Eordeoghlakat.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --bg:#000;
+      --ink:#f2f2f2;
+      --muted:#9aa0a6;
+      --hairline:rgba(255,255,255,.10);
+      --panel:rgba(0,0,0,.55);
+      --panel2:rgba(0,0,0,.75);
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.55);
+
+      /* Frame colour like your mock */
+      --frame: rgba(70, 90, 255, .9);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      overflow:hidden; /* keeps transitions clean */
+    }
+
+    /* Background video layer (Home only) */
+    .bg{
+      position:fixed; inset:0;
+      z-index:-2;
+      pointer-events:none;
+    }
+    .bg video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter: contrast(1.05) brightness(.8);
+    }
+    .bg__shade{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(80% 60% at 50% 30%, rgba(0,0,0,.10), rgba(0,0,0,.85)),
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.90));
+    }
+
+    /* === Top bar (now sits INSIDE the blue frame) === */
+    .topbar{
+      position:fixed;
+      top:14px; left:14px; right:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 16px;
+      z-index:4;
+      background:transparent; /* no "app header" vibe */
+    }
+
+    .brand{
+      border:0;
+      background:transparent;
+      color:var(--ink);
+      cursor:pointer;
+      padding:6px 8px; /* breathing room */
+      border-radius:10px;
+    }
+    .brand:hover{ background:rgba(255,255,255,.06); }
+
+    /* Top-left TIVEY in your font */
+    .brand__text{
+      font-family: "Eordeoghlakat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:22px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-weight:400;
+      line-height:1;
+    }
+
+    .nav{
+      display:flex;
+      gap:8px;
+    }
+
+    /* Quieter nav pills (less “modern UI”, more “label”) */
+    .nav__link{
+      border:1px solid rgba(255,255,255,.12);
+      background: transparent;
+      color:var(--ink);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:500;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-size:13px;
+      opacity:.85;
+    }
+    .nav__link:hover{
+      opacity:1;
+      background:rgba(255,255,255,.04);
+    }
+
+    /* Viewport + pages */
+    .viewport{
+      position:fixed;
+      inset:0;
+    }
+
+    /* Blue frame border like your mock */
+    .viewport::before{
+      content:"";
+      position:absolute;
+      inset: 14px;
+      border: 2px solid var(--frame);
+      pointer-events:none;
+      z-index: 2;
+      border-radius: 2px;
+    }
+
+    .page{
+      position:absolute;
+      inset:0;
+      padding:96px 18px 80px; /* room for header inside frame */
+      overflow:auto;
+      opacity:0;
+      transform: translateX(12%);
+      pointer-events:none;
+      transition: opacity 360ms ease, transform 360ms ease;
+    }
+
+    .page.is-active{
+      opacity:1;
+      transform: translateX(0);
+      pointer-events:auto;
+    }
+
+    .page.is-left{
+      opacity:0;
+      transform: translateX(-12%);
+    }
+
+    .page__inner{
+      max-width:1000px;
+      margin:0 auto;
+    }
+
+    .page__title{
+      margin:6px 0 6px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .page__hint{
+      margin:0 0 18px;
+      color:var(--muted);
+    }
+
+    /* Home hero */
+    .hero{
+      height: calc(100vh - 200px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      max-width:1000px;
+      margin:0 auto;
+      padding:10px 0 10px 40px; /* slight left shift like your map */
+    }
+
+    /* Big TIVEY in your font */
+    .hero__title{
+      font-family: "Eordeoghlakat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      margin:0;
+      font-size: clamp(72px, 8vw, 120px);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      line-height:1;
+    }
+
+    /* Grids/cards */
+    .grid{ display:grid; gap:14px; }
+    .albums{ grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+    .card{
+      display:block;
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:var(--panel2);
+      text-decoration:none;
+      color:var(--ink);
+      box-shadow: var(--shadow);
+    }
+    .card img{
+      width:100%;
+      height:210px;
+      object-fit:cover;
+      display:block;
+      filter: contrast(1.05) brightness(.95);
+    }
+    .card__meta{ padding:12px 12px 14px; }
+    .card__title{ font-weight:800; letter-spacing:.02em; }
+    .card__sub{ color:var(--muted); margin-top:4px; font-size:14px; }
+
+    .links{
+      margin-top:16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .link{
+      color:var(--ink);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.25);
+      padding-bottom:2px;
+    }
+    .link:hover{ border-bottom-color: rgba(255,255,255,.7); }
+
+    /* Videos */
+    .videos{ grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .videoCard{
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:var(--panel2);
+      box-shadow: var(--shadow);
+    }
+    .videoWrap{
+      position:relative;
+      padding-top:56.25%;
+      background:#000;
+    }
+    .videoWrap iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+    }
+    .videoCard__meta{ padding:12px 12px 14px; }
+    .videoCard__title{ font-weight:800; }
+    .videoCard__sub{ color:var(--muted); margin-top:4px; font-size:14px; }
+
+    /* Gallery */
+    .masonry{ column-count:2; column-gap:14px; }
+    .masonry img{
+      width:100%;
+      margin:0 0 14px;
+      border-radius:14px;
+      border:1px solid var(--hairline);
+      display:block;
+      break-inside: avoid;
+      filter: contrast(1.05) brightness(.95);
+    }
+
+    /* About */
+    .about{
+      max-width:70ch;
+      background:var(--panel);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      padding:16px;
+    }
+    .muted{ color:var(--muted); }
+    .inline{
+      color:var(--ink);
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,.25);
+    }
+    .inline:hover{ border-bottom-color: rgba(255,255,255,.7); }
+
+    /* Footer (also inside the frame) */
+    .footer{
+      position:fixed;
+      bottom:14px; left:14px; right:14px;
+      padding:10px 16px;
+      display:flex;
+      justify-content:center;
+      color:rgba(255,255,255,.55);
+      font-size:13px;
+      z-index:3;
+      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+      pointer-events:none;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 640px){
+      .nav__link{ padding:9px 10px; font-size:12px; }
+      .masonry{ column-count:1; }
+      .hero{ padding-left:18px; }
+      .topbar{ padding:10px 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background video (Home only) -->
+  <div class="bg" id="bg">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+      <source src="media/bg.mp4" type="video/mp4" />
+    </video>
+    <div class="bg__shade"></div>
+  </div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <button class="brand" data-nav="home" aria-label="Go to home">
+      <span class="brand__text">TIVEY</span>
+    </button>
+
+    <nav class="nav">
+      <button class="nav__link" data-nav="music">Music</button>
+      <button class="nav__link" data-nav="videos">Videos</button>
+      <button class="nav__link" data-nav="gallery">Gallery</button>
+      <button class="nav__link" data-nav="about">About</button>
+    </nav>
+  </header>
+
+  <!-- Page viewport -->
+  <main class="viewport" aria-live="polite">
+    <!-- HOME -->
+    <section class="page is-active" id="page-home" data-page="home">
+      <div class="hero">
+        <h1 class="hero__title">TIVEY</h1>
+        <!-- per your map: removed subheading + buttons -->
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section class="page" id="page-music" data-page="music">
+      <div class="page__inner">
+        <h2 class="page__title">Music</h2>
+        <p class="page__hint">Albums & releases.</p>
+
+        <div class="grid albums">
+          <a class="card" href="#" target="_blank" rel="noreferrer">
+            <img src="img/album1.jpg" alt="Album cover 1" />
+            <div class="card__meta">
+              <div class="card__title">Bliss</div>
+              <div class="card__sub">2024</div>
+            </div>
+          </a>
+
+          <a class="card" href="#" target="_blank" rel="noreferrer">
+            <img src="img/album2.jpg" alt="Album cover 2" />
+            <div class="card__meta">
+              <div class="card__title">Anomaly in the Static</div>
+              <div class="card__sub">Single / EP</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="links">
+          <a class="link" href="#" target="_blank" rel="noreferrer">Spotify</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">Apple Music</a>
+          <a class="link" href="#" target="_blank" rel="noreferrer">Bandcamp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="page" id="page-videos" data-page="videos">
+      <div class="page__inner">
+        <h2 class="page__title">Videos</h2>
+        <p class="page__hint">Plays here, embedded from YouTube.</p>
+
+        <div class="grid videos">
+          <div class="videoCard">
+            <div class="videoWrap">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/VIDEO_ID_1?rel=0"
+                title="Tivey video 1"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <div class="videoCard__meta">
+              <div class="videoCard__title">Video Title</div>
+              <div class="videoCard__sub">YouTube</div>
+            </div>
+          </div>
+
+          <div class="videoCard">
+            <div class="videoWrap">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/VIDEO_ID_2?rel=0"
+                title="Tivey video 2"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            <div class="videoCard__meta">
+              <div class="videoCard__title">Video Title</div>
+              <div class="videoCard__sub">YouTube</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="links">
+          <a class="link" href="https://youtube.com/@lewistivey" target="_blank" rel="noreferrer">More on YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="page" id="page-gallery" data-page="gallery">
+      <div class="page__inner">
+        <h2 class="page__title">Gallery</h2>
+        <p class="page__hint">Photos & artwork.</p>
+
+        <div class="masonry">
+          <img src="img/gallery1.jpg" alt="Gallery image 1" />
+          <img src="img/gallery2.jpg" alt="Gallery image 2" />
+          <img src="img/gallery1.jpg" alt="Gallery image 3" />
+          <img src="img/gallery2.jpg" alt="Gallery image 4" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="page" id="page-about" data-page="about">
+      <div class="page__inner">
+        <h2 class="page__title">About</h2>
+        <div class="about">
+          <p>
+            Tivey is an indie alternative rock artist focused on raw guitars, grunge energy, and honest songwriting.
+            The project blends heavy textures with hooks you can actually sing.
+          </p>
+
+          <p class="muted">
+            Find him here:
+            <a class="inline" href="https://instagram.com/Lewis_tivey" target="_blank" rel="noreferrer">@Lewis_tivey</a>,
+            <a class="inline" href="https://x.com/TiveyLewis" target="_blank" rel="noreferrer">@TiveyLewis</a>,
+            <a class="inline" href="https://youtube.com/@lewistivey" target="_blank" rel="noreferrer">@lewistivey</a>,
+            <a class="inline" href="https://facebook.com/LewisTiveyofficial/" target="_blank" rel="noreferrer">@LewisTiveyofficial</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Tivey</span>
+  </footer>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const bg = document.getElementById("bg");
+    const year = document.getElementById("year");
+    year.textContent = new Date().getFullYear();
+
+    let current = "home";
+    let isAnimating = false;
+
+    function setBgVisible(pageName) {
+      // Home only, as per your mock
+      bg.style.display = (pageName === "home") ? "block" : "none";
+    }
+
+    function getPage(name) {
+      return pages.find(p => p.dataset.page === name);
+    }
+
+    function navigate(to) {
+      if (isAnimating || to === current) return;
+
+      const fromPage = getPage(current);
+      const toPage = getPage(to);
+      if (!toPage) return;
+
+      isAnimating = true;
+
+      const order = ["home","music","videos","gallery","about"];
+      const dir = order.indexOf(to) > order.indexOf(current) ? "right" : "left";
+
+      // prep target page offscreen
+      toPage.classList.remove("is-left");
+      toPage.style.transition = "none";
+      toPage.style.opacity = "0";
+      toPage.style.transform = dir === "right" ? "translateX(12%)" : "translateX(-12%)";
+      toPage.style.pointerEvents = "none";
+      toPage.scrollTop = 0;
+
+      // force reflow
+      void toPage.offsetHeight;
+
+      // animate out current
+      fromPage.classList.remove("is-active");
+      fromPage.classList.add("is-left");
+
+      // animate in target
+      toPage.style.transition = "";
+      toPage.classList.add("is-active");
+      toPage.style.opacity = "1";
+      toPage.style.transform = "translateX(0)";
+      toPage.style.pointerEvents = "auto";
+
+      setBgVisible(to);
+
+      window.setTimeout(() => {
+        // cleanup inline styles
+        toPage.style.opacity = "";
+        toPage.style.transform = "";
+        toPage.style.pointerEvents = "";
+        current = to;
+        isAnimating = false;
+      }, 380);
+
+      history.replaceState(null, "", "#" + to);
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-nav]");
+      if (!btn) return;
+      navigate(btn.dataset.nav);
+    });
+
+    function bootFromHash() {
+      const hash = (location.hash || "#home").replace("#", "");
+      const valid = ["home","music","videos","gallery","about"];
+      const start = valid.includes(hash) ? hash : "home";
+
+      pages.forEach(p => p.classList.remove("is-active","is-left"));
+      getPage(start).classList.add("is-active");
+      current = start;
+      setBgVisible(start);
+    }
+
+    bootFromHash();
+    window.addEventListener("hashchange", bootFromHash);
+  </script>
+</body>
+</html>
