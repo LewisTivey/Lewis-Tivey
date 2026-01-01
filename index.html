@@ -310,7 +310,18 @@
 <body>
   <!-- Background video (Home only) -->
   <div class="bg" id="bg">
-    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+    <video
+  id="bgVideo"
+  autoplay
+  muted
+  loop
+  playsinline
+  webkit-playsinline
+  preload="metadata"
+  poster="img/bg-poster.jpg">
+  <source src="bg.mp4" type="video/mp4" />
+</video>
+
      <source src="bg.mp4" type="video/mp4" />
 
     </video>
