@@ -164,10 +164,11 @@
       margin-top:10px;
     }
 
+    /* FIX: prevent cover stretching to match text height */
     .album{
       display:flex;
       gap:16px;
-      align-items:stretch;
+      align-items:flex-start; /* was stretch */
       background:rgba(0,0,0,.45);
       border:1px solid var(--hairline);
       border-radius:var(--radius);
@@ -175,11 +176,13 @@
       overflow:hidden;
     }
 
+    /* FIX: keep covers a clean square on desktop */
     .album__coverLink{
       flex:0 0 auto;
       display:block;
       width: clamp(160px, 24vw, 260px);
-      max-width:260px;
+      aspect-ratio: 1 / 1;
+      overflow:hidden;
     }
 
     .album__cover{
@@ -391,8 +394,12 @@
       .hero{ padding-left:18px; }
       .nav__link{ font-size:11px; padding:7px 10px; }
       .album{ flex-direction:column; }
-      .album__coverLink{ width:100%; max-width:none; }
-      .album__cover{ height:auto; }
+      .album__coverLink{
+        width:100%;
+        max-width:none;
+        aspect-ratio:auto; /* FIX: let mobile behave naturally */
+      }
+      .album__cover{ height:auto; } /* keeps mobile clean */
       .page{
         padding:
           calc(92px + env(safe-area-inset-top))
