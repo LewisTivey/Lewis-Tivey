@@ -111,7 +111,6 @@
       padding:
         calc(96px + env(safe-area-inset-top))
         18px
-        /* IMPORTANT: extra bottom padding so footer never overlaps content */
         calc(220px + env(safe-area-inset-bottom));
       overflow:auto;
       opacity:0;
@@ -146,7 +145,6 @@
       padding-left:40px;
     }
 
-    /* FIX: home title contrast/weight after brighter video */
     .hero__title{
       font-family:"Eordeoghlakat";
       font-size:clamp(72px,8vw,120px);
@@ -158,7 +156,7 @@
         0 12px 38px rgba(0,0,0,.85);
     }
 
-    /* === Music layout (fixed sizing + responsive) === */
+    /* === Music layout === */
     .musicList{
       display:flex;
       flex-direction:column;
@@ -206,7 +204,6 @@
       margin-bottom:8px;
     }
 
-    /* FIX: album titles in Eordeoghlakat */
     .album__title{
       margin:0;
       font-family:"Eordeoghlakat";
@@ -237,6 +234,92 @@
     }
     .album__text p{ margin:0 0 10px; }
     .album__text p:last-child{ margin-bottom:0; }
+
+    /* === Videos === */
+    .videosWrap{ margin-top:10px; }
+
+    .videosGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .vid{
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    /* 16:9 responsive video */
+    .vid__frame{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      background:#000;
+    }
+    .vid__frame iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    .vid__body{
+      padding:12px 12px 14px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .vid__title{
+      margin:0;
+      font-family:"Eordeoghlakat";
+      font-size:16px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      color:rgba(255,255,255,.92);
+      line-height:1.05;
+    }
+
+    .vid__link{
+      font-size:11px;
+      opacity:.75;
+      text-decoration:none;
+      color:rgba(255,255,255,.85);
+      border-bottom:1px solid rgba(255,255,255,.22);
+      padding-bottom:2px;
+      white-space:nowrap;
+    }
+    .vid__link:hover{ opacity:1; border-bottom-color:rgba(255,255,255,.6); }
+
+    .moreVideos{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+    }
+    .moreVideos a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.88);
+      text-decoration:none;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .moreVideos a:hover{
+      background:rgba(255,255,255,.06);
+      color:#fff;
+    }
 
     /* About box */
     .about{
@@ -301,6 +384,7 @@
 
     @media(max-width:800px){
       .album__coverLink{ width: clamp(140px, 34vw, 220px); }
+      .videosGrid{ grid-template-columns:1fr; }
     }
 
     @media(max-width:640px){
@@ -414,7 +498,119 @@
       </div>
     </section>
 
-    <section class="page" data-page="videos"><div class="page__inner"><h2>Videos</h2></div></section>
+    <!-- VIDEOS -->
+    <section class="page" data-page="videos">
+      <div class="page__inner">
+        <h2>Videos</h2>
+
+        <div class="videosWrap">
+          <div class="videosGrid">
+
+            <!-- Living The Dream -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/wNb0m2_FqLY?rel=0"
+                  title="Living The Dream"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Living The Dream</h3>
+                <a class="vid__link" href="https://youtu.be/wNb0m2_FqLY?si=KPWlpfeMm5hkvwpf" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- IF You Please -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/bb59hgtVoYw?rel=0"
+                  title="IF You Please"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">IF You Please</h3>
+                <a class="vid__link" href="https://youtu.be/bb59hgtVoYw?si=euNnzwk0wcSz-hRH" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Alien Nation -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Vb_bnvKovBE?rel=0"
+                  title="Alien Nation"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Alien Nation</h3>
+                <a class="vid__link" href="https://youtu.be/Vb_bnvKovBE?si=WRhM83NMjTrodSGs" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Never Better -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/GT-iMDkMVDQ?rel=0"
+                  title="Never Better"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Never Better</h3>
+                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ?si=pKiOlx6RUMjNXp5G" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Flock -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/oQR8nuWojPo?rel=0"
+                  title="Flock"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Flock</h3>
+                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo?si=vCbyg9FgGFvsvRDb" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Seed You -->
+            <article class="vid">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/SE6kcLwgyPE?rel=0"
+                  title="Seed You"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Seed You</h3>
+                <a class="vid__link" href="https://youtu.be/SE6kcLwgyPE?si=33xo_-BTZ44Pn6Ff" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+          </div>
+
+          <div class="moreVideos">
+            <a href="https://www.youtube.com/@lewistivey/videos" target="_blank" rel="noreferrer">More videos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="page" data-page="gallery"><div class="page__inner"><h2>Gallery</h2></div></section>
 
     <section class="page" data-page="about">
