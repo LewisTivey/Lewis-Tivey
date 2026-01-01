@@ -479,7 +479,15 @@
 
     @media(max-width:640px){
       .hero{ padding-left:18px; }
-      .nav__link{ font-size:12px; padding:8px 12px; }
+
+      /* MOBILE: shrink top tabs so they don't wreck scrolling */
+      .nav{ gap:8px; }
+      .nav__link{ font-size:11px; padding:6px 10px; border-radius:999px; }
+      .topbar{ gap:10px; }
+
+      /* iOS scroll feel */
+      .page{ -webkit-overflow-scrolling: touch; }
+
       .brand__text{ font-size:22px; }
 
       .album{ flex-direction:column; }
