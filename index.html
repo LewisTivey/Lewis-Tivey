@@ -145,13 +145,17 @@
       align-items:center;
       padding-left:40px;
     }
+
+    /* FIX: home title contrast/weight after brighter video */
     .hero__title{
       font-family:"Eordeoghlakat";
       font-size:clamp(72px,8vw,120px);
       letter-spacing:.15em;
       margin:0;
-      color:rgba(242,242,242,.78);           /* softened */
-      text-shadow:0 6px 24px rgba(0,0,0,.7); /* restores weight */
+      color:rgba(255,255,255,.92);
+      text-shadow:
+        0 2px 6px rgba(0,0,0,.65),
+        0 12px 38px rgba(0,0,0,.85);
     }
 
     /* === Music layout (fixed sizing + responsive) === */
@@ -176,7 +180,7 @@
     .album__coverLink{
       flex:0 0 auto;
       display:block;
-      width: clamp(160px, 24vw, 260px); /* <<< key sizing */
+      width: clamp(160px, 24vw, 260px);
       max-width:260px;
     }
 
@@ -202,13 +206,16 @@
       margin-bottom:8px;
     }
 
+    /* FIX: album titles in Eordeoghlakat */
     .album__title{
       margin:0;
-      font-size:14px;
-      letter-spacing:.10em;
+      font-family:"Eordeoghlakat";
+      font-size:18px;
+      letter-spacing:.14em;
       text-transform:uppercase;
-      font-weight:800;
-      color:rgba(255,255,255,.95);
+      font-weight:400;
+      color:rgba(255,255,255,.92);
+      line-height:1.05;
     }
 
     .album__cta{
@@ -226,7 +233,7 @@
       margin:0;
       color:rgba(255,255,255,.82);
       line-height:1.6;
-      font-size:13px; /* slightly smaller so it breathes */
+      font-size:13px;
     }
     .album__text p{ margin:0 0 10px; }
     .album__text p:last-child{ margin-bottom:0; }
@@ -252,7 +259,7 @@
       z-index:3;
       background:linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0));
       padding:14px 0 10px;
-      pointer-events:none; /* keeps it from blocking scrolling/clicks */
+      pointer-events:none;
     }
 
     .footer__inner{
@@ -299,16 +306,9 @@
     @media(max-width:640px){
       .hero{ padding-left:18px; }
       .nav__link{ font-size:11px; padding:7px 10px; }
-      .album{
-        flex-direction:column; /* stacks on mobile */
-      }
-      .album__coverLink{
-        width:100%;
-        max-width:none;
-      }
-      .album__cover{
-        height:auto;
-      }
+      .album{ flex-direction:column; }
+      .album__coverLink{ width:100%; max-width:none; }
+      .album__cover{ height:auto; }
       .page{
         padding:
           calc(92px + env(safe-area-inset-top))
