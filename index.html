@@ -7,7 +7,6 @@
   <meta name="description" content="Tivey — music, videos, gallery, and info." />
 
   <style>
-    /* === Trademark font === */
     @font-face {
       font-family: "Eordeoghlakat";
       src: url("Eordeoghlakat.ttf") format("truetype");
@@ -38,7 +37,6 @@
       overflow:hidden;
     }
 
-    /* === Background video === */
     .bg{
       position:fixed;
       inset:0;
@@ -60,7 +58,6 @@
         linear-gradient(to bottom, rgba(0,0,0,.32), rgba(0,0,0,.85));
     }
 
-    /* === Top bar === */
     .topbar{
       position:fixed;
       top:calc(var(--pad) + env(safe-area-inset-top));
@@ -101,7 +98,6 @@
     }
     .nav__link:hover{ opacity:1; }
 
-    /* === Pages === */
     .viewport{ position:fixed; inset:0; }
     .page{
       position:absolute;
@@ -121,17 +117,12 @@
       transform:none;
       pointer-events:auto;
     }
-    .page.is-left{
-      opacity:0;
-      transform:translateX(-12%);
-    }
 
     .page__inner{
       max-width:1000px;
       margin:0 auto;
     }
 
-    /* === Home === */
     .hero{
       height:calc(100vh - 220px);
       display:flex;
@@ -143,29 +134,10 @@
       font-size:clamp(72px,8vw,120px);
       letter-spacing:.15em;
       margin:0;
+      color:rgba(242,242,242,.82); /* softened */
+      text-shadow:0 6px 24px rgba(0,0,0,.65); /* restores weight */
     }
 
-    /* === Cards / grids === */
-    .grid{ display:grid; gap:14px; }
-    .albums{ grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
-
-    .card{
-      background:var(--panel2);
-      border:1px solid var(--hairline);
-      border-radius:var(--radius);
-      overflow:hidden;
-      text-decoration:none;
-      color:var(--ink);
-      box-shadow:var(--shadow);
-    }
-    .card img{
-      width:100%;
-      height:210px;
-      object-fit:cover;
-    }
-    .card__meta{ padding:12px; }
-
-    /* === Footer / socials === */
     .footer{
       position:fixed;
       bottom:calc(var(--pad) + env(safe-area-inset-bottom));
@@ -210,11 +182,6 @@
       background:rgba(255,255,255,.06);
       color:#fff;
     }
-    .social svg{
-      width:16px;
-      height:16px;
-      fill:currentColor;
-    }
 
     @media(max-width:640px){
       .hero{ padding-left:18px; }
@@ -225,7 +192,6 @@
 
 <body>
 
-  <!-- Background video -->
   <div class="bg" id="bg">
     <video autoplay muted loop playsinline preload="metadata">
       <source src="bg.mp4" type="video/mp4" />
@@ -233,7 +199,6 @@
     <div class="bg__shade"></div>
   </div>
 
-  <!-- Top bar -->
   <header class="topbar">
     <button class="brand" data-nav="home"><span class="brand__text">TIVEY</span></button>
     <nav class="nav">
@@ -244,7 +209,6 @@
     </nav>
   </header>
 
-  <!-- Pages -->
   <main class="viewport">
     <section class="page is-active" data-page="home">
       <div class="hero">
@@ -252,32 +216,25 @@
       </div>
     </section>
 
-    <section class="page" data-page="music">
-      <div class="page__inner">
-        <h2>Music</h2>
-      </div>
-    </section>
-
-    <section class="page" data-page="videos">
-      <div class="page__inner">
-        <h2>Videos</h2>
-      </div>
-    </section>
-
-    <section class="page" data-page="gallery">
-      <div class="page__inner">
-        <h2>Gallery</h2>
-      </div>
-    </section>
+    <section class="page" data-page="music"><div class="page__inner"><h2>Music</h2></div></section>
+    <section class="page" data-page="videos"><div class="page__inner"><h2>Videos</h2></div></section>
+    <section class="page" data-page="gallery"><div class="page__inner"><h2>Gallery</h2></div></section>
 
     <section class="page" data-page="about">
       <div class="page__inner">
         <h2>About</h2>
+        <div class="about">
+          <img src="Tiv about pic.jpg" alt="Lewis Tivey portrait" style="width:100%;max-width:360px;border-radius:14px;margin:16px 0;border:1px solid rgba(255,255,255,.15);" />
+          <p>Lewis Tivey is an independent alternative rock artist whose work exists somewhere between melody and abrasion, order and collapse. Writing, recording, producing, and releasing his music independently, Tivey operates outside scenes, trends, and algorithms, favouring instinct, atmosphere, and emotional honesty over polish or commercial expectation.</p>
+          <p>His sound blends heavy, down-tuned guitars with haunting vocal lines, bursts of raw noise, and moments of quiet vulnerability. Influences are felt rather than quoted—grunge, alternative rock, doom, and experimental textures bleed into one another, forming what has come to be recognised as The Tivey Sound: chaotic, heavy, and expressive, but always anchored by melody. It is music built to feel lived-in, imperfect, and human.</p>
+          <p>Tivey’s catalogue spans multiple releases, including albums and singles that chart a gradual evolution from stripped-back aggression to more layered, reflective work. While early material leans heavily into grit and confrontation, later releases reveal a growing focus on atmosphere, structure, and restraint—without losing the raw edge that defines his identity.</p>
+          <p>Visually, his work carries the same philosophy. Album artwork, videos, and promotional material favour stark imagery, high contrast, and a grunge-noir aesthetic that mirrors the music’s emotional weight. Nothing exists purely for decoration; everything serves mood, memory, or meaning.</p>
+          <p>This site serves as an archive of that work: the music, the visuals, and the fragments left behind. What matters is not when it was made, but that it exists at all.</p>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer__inner">
       <div class="socials">
@@ -297,13 +254,13 @@
     let current="home",anim=false;
 
     function nav(to){
-      if(anim||to===current) return;
+      if(anim) return;
       const from=pages.find(p=>p.dataset.page===current);
       const next=pages.find(p=>p.dataset.page===to);
       if(!next) return;
       anim=true;
-      next.classList.add("is-active");
       from.classList.remove("is-active");
+      next.classList.add("is-active");
       current=to;
       bg.style.display=to==="home"?"block":"none";
       setTimeout(()=>anim=false,360);
@@ -314,9 +271,6 @@
       const b=e.target.closest("[data-nav]");
       if(b) nav(b.dataset.nav);
     });
-
-    const hash=location.hash.replace("#","")||"home";
-    nav(hash);
   </script>
 
 </body>
