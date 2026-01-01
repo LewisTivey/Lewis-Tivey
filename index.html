@@ -480,9 +480,25 @@
     @media(max-width:640px){
       .hero{ padding-left:18px; }
 
-      /* MOBILE: shrink top tabs so they don't wreck scrolling */
-      .nav{ gap:8px; }
-      .nav__link{ font-size:11px; padding:6px 10px; border-radius:999px; }
+      /* MOBILE: keep top tabs in ONE horizontal row (no wrapping) */
+      .nav{
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        gap:8px;
+        justify-content:flex-end;
+        white-space:nowrap;
+      }
+      .nav::-webkit-scrollbar{ height:0; }
+
+      .nav__link{
+        flex:0 0 auto;
+        font-size:11px;
+        padding:6px 10px;
+        border-radius:999px;
+      }
+
       .topbar{ gap:10px; }
 
       /* iOS scroll feel */
