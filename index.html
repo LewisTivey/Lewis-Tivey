@@ -28,9 +28,6 @@
       --radius:14px;
       --shadow: 0 10px 30px rgba(0,0,0,.55);
 
-      /* Frame colour like your mock */
-      --frame: rgba(70, 90, 255, .9);
-
       /* Responsive inset (desktop ~14px, mobile ~8–12px) */
       --pad: clamp(8px, 2.2vw, 14px);
     }
@@ -65,7 +62,7 @@
         linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.90));
     }
 
-    /* === Top bar (now sits INSIDE the blue frame) === */
+    /* === Top bar === */
     .topbar{
       position:fixed;
       top: calc(var(--pad) + env(safe-area-inset-top));
@@ -76,7 +73,7 @@
       justify-content:space-between;
       padding:12px 16px;
       z-index:4;
-      background:transparent; /* no "app header" vibe */
+      background:transparent;
     }
 
     .brand{
@@ -84,12 +81,11 @@
       background:transparent;
       color:var(--ink);
       cursor:pointer;
-      padding:6px 8px; /* breathing room */
+      padding:6px 8px;
       border-radius:10px;
     }
     .brand:hover{ background:rgba(255,255,255,.06); }
 
-    /* Top-left TIVEY in your font */
     .brand__text{
       font-family: "Eordeoghlakat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:22px;
@@ -104,7 +100,6 @@
       gap:8px;
     }
 
-    /* Quieter nav pills (less “modern UI”, more “label”) */
     .nav__link{
       border:1px solid rgba(255,255,255,.12);
       background: transparent;
@@ -129,32 +124,14 @@
       inset:0;
     }
 
-    /* Blue frame border like your mock (RESPONSIVE + SAFE AREA) */
-    .viewport::before{
-      content:"";
-      position:absolute;
-
-      inset:
-        calc(var(--pad) + env(safe-area-inset-top))
-        calc(var(--pad) + env(safe-area-inset-right))
-        calc(var(--pad) + env(safe-area-inset-bottom))
-        calc(var(--pad) + env(safe-area-inset-left));
-
-      border: 2px solid var(--frame);
-      pointer-events:none;
-      z-index: 2;
-      border-radius: 2px;
-    }
-
     .page{
       position:absolute;
       inset:0;
 
-      /* room for header inside frame */
       padding:
         calc(96px + env(safe-area-inset-top))
         18px
-        calc(80px + env(safe-area-inset-bottom));
+        calc(120px + env(safe-area-inset-bottom)); /* extra room for socials footer */
 
       overflow:auto;
       opacity:0;
@@ -198,10 +175,9 @@
       align-items:flex-start;
       max-width:1000px;
       margin:0 auto;
-      padding:10px 0 10px 40px; /* slight left shift like your map */
+      padding:10px 0 10px 40px;
     }
 
-    /* Big TIVEY in your font */
     .hero__title{
       font-family: "Eordeoghlakat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       margin:0;
@@ -301,7 +277,7 @@
     }
     .inline:hover{ border-bottom-color: rgba(255,255,255,.7); }
 
-    /* Footer (also inside the frame) */
+    /* Footer */
     .footer{
       position:fixed;
       bottom: calc(var(--pad) + env(safe-area-inset-bottom));
@@ -310,11 +286,55 @@
       padding:10px 16px;
       display:flex;
       justify-content:center;
+      z-index:3;
+      background: linear-gradient(to top, rgba(0,0,0,.62), rgba(0,0,0,0));
+      pointer-events:none;
+    }
+
+    .footer__inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
       color:rgba(255,255,255,.55);
       font-size:13px;
-      z-index:3;
-      background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
-      pointer-events:none;
+    }
+
+    .socials{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+      pointer-events:auto; /* clickable even though footer is not */
+    }
+
+    .social{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.78);
+      text-decoration:none;
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      line-height:1;
+    }
+    .social:hover{
+      color:rgba(255,255,255,.95);
+      border-color:rgba(255,255,255,.28);
+      background:rgba(255,255,255,.05);
+    }
+
+    .social svg{
+      width:16px;
+      height:16px;
+      display:block;
+      fill: currentColor;
+      opacity:.95;
     }
 
     /* Mobile tweaks */
@@ -323,6 +343,7 @@
       .masonry{ column-count:1; }
       .hero{ padding-left:18px; }
       .topbar{ padding:10px 12px; }
+      .social{ font-size:11px; padding:8px 9px; }
     }
   </style>
 </head>
@@ -481,7 +502,35 @@
   </main>
 
   <footer class="footer">
-    <span>© <span id="year"></span> Tivey</span>
+    <div class="footer__inner">
+      <div class="socials" aria-label="Social links">
+        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR?si=QdqoBWphR2akdaIezAL1mw" target="_blank" rel="noreferrer">
+          <!-- Spotify icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.588 14.46a.75.75 0 0 1-1.032.25c-2.827-1.731-6.39-2.123-10.59-1.165a.75.75 0 1 1-.333-1.462c4.59-1.047 8.52-.602 11.7 1.345a.75.75 0 0 1 .255 1.032zm.89-2.317a.9.9 0 0 1-1.237.3c-3.236-1.99-8.167-2.567-11.99-1.407a.9.9 0 0 1-.523-1.723c4.37-1.327 9.77-.682 13.49 1.605a.9.9 0 0 1 .26 1.225zm.076-2.414C13.83 9.41 7.06 9.203 3.84 10.19a1.05 1.05 0 1 1-.614-2.008c3.703-1.132 11.32-.88 15.58 1.657a1.05 1.05 0 1 1-1.07 1.89z"/></svg>
+          Spotify
+        </a>
+
+        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer">
+          <!-- Instagram icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 1.8h-9A3.7 3.7 0 0 0 3.8 7.5v9A3.7 3.7 0 0 0 7.5 20.2h9a3.7 3.7 0 0 0 3.7-3.7v-9a3.7 3.7 0 0 0-3.7-3.7zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm5.7-2.2a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0z"/></svg>
+          Instagram
+        </a>
+
+        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer">
+          <!-- Facebook icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.87.24-1.46 1.5-1.46h1.7V5.1c-.3-.04-1.33-.11-2.53-.11-2.5 0-4.2 1.52-4.2 4.31V11H7.3v3H10v8h3.5z"/></svg>
+          Facebook
+        </a>
+
+        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer">
+          <!-- YouTube icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 7.2a3 3 0 0 0-2.1-2.1C17.9 4.6 12 4.6 12 4.6s-5.9 0-7.6.5A3 3 0 0 0 2.3 7.2 31.6 31.6 0 0 0 2 12a31.6 31.6 0 0 0 .3 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 22 12a31.6 31.6 0 0 0-.3-4.8zM10 15.3V8.7L16 12l-6 3.3z"/></svg>
+          YouTube
+        </a>
+      </div>
+
+      <span>© <span id="year"></span> Tivey</span>
+    </div>
   </footer>
 
   <script>
