@@ -30,6 +30,9 @@
 
       /* Frame colour like your mock */
       --frame: rgba(70, 90, 255, .9);
+
+      /* Responsive inset (desktop ~14px, mobile ~8–12px) */
+      --pad: clamp(8px, 2.2vw, 14px);
     }
 
     *{ box-sizing:border-box; }
@@ -47,6 +50,7 @@
       position:fixed; inset:0;
       z-index:-2;
       pointer-events:none;
+      background:#000;
     }
     .bg video{
       width:100%;
@@ -64,7 +68,9 @@
     /* === Top bar (now sits INSIDE the blue frame) === */
     .topbar{
       position:fixed;
-      top:14px; left:14px; right:14px;
+      top: calc(var(--pad) + env(safe-area-inset-top));
+      left: calc(var(--pad) + env(safe-area-inset-left));
+      right: calc(var(--pad) + env(safe-area-inset-right));
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -123,11 +129,17 @@
       inset:0;
     }
 
-    /* Blue frame border like your mock */
+    /* Blue frame border like your mock (RESPONSIVE + SAFE AREA) */
     .viewport::before{
       content:"";
       position:absolute;
-      inset: 14px;
+
+      inset:
+        calc(var(--pad) + env(safe-area-inset-top))
+        calc(var(--pad) + env(safe-area-inset-right))
+        calc(var(--pad) + env(safe-area-inset-bottom))
+        calc(var(--pad) + env(safe-area-inset-left));
+
       border: 2px solid var(--frame);
       pointer-events:none;
       z-index: 2;
@@ -137,7 +149,13 @@
     .page{
       position:absolute;
       inset:0;
-      padding:96px 18px 80px; /* room for header inside frame */
+
+      /* room for header inside frame */
+      padding:
+        calc(96px + env(safe-area-inset-top))
+        18px
+        calc(80px + env(safe-area-inset-bottom));
+
       overflow:auto;
       opacity:0;
       transform: translateX(12%);
@@ -286,7 +304,9 @@
     /* Footer (also inside the frame) */
     .footer{
       position:fixed;
-      bottom:14px; left:14px; right:14px;
+      bottom: calc(var(--pad) + env(safe-area-inset-bottom));
+      left: calc(var(--pad) + env(safe-area-inset-left));
+      right: calc(var(--pad) + env(safe-area-inset-right));
       padding:10px 16px;
       display:flex;
       justify-content:center;
@@ -311,19 +331,15 @@
   <!-- Background video (Home only) -->
   <div class="bg" id="bg">
     <video
-  id="bgVideo"
-  autoplay
-  muted
-  loop
-  playsinline
-  webkit-playsinline
-  preload="metadata"
-  poster="img/bg-poster.jpg">
-  <source src="bg.mp4" type="video/mp4" />
-</video>
-
-     <source src="bg.mp4" type="video/mp4" />
-
+      id="bgVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      poster="img/bg-poster.jpg">
+      <source src="bg.mp4" type="video/mp4" />
     </video>
     <div class="bg__shade"></div>
   </div>
@@ -348,7 +364,6 @@
     <section class="page is-active" id="page-home" data-page="home">
       <div class="hero">
         <h1 class="hero__title">TIVEY</h1>
-        <!-- per your map: removed subheading + buttons -->
       </div>
     </section>
 
@@ -479,7 +494,6 @@
     let isAnimating = false;
 
     function setBgVisible(pageName) {
-      // Home only, as per your mock
       bg.style.display = (pageName === "home") ? "block" : "none";
     }
 
@@ -499,7 +513,6 @@
       const order = ["home","music","videos","gallery","about"];
       const dir = order.indexOf(to) > order.indexOf(current) ? "right" : "left";
 
-      // prep target page offscreen
       toPage.classList.remove("is-left");
       toPage.style.transition = "none";
       toPage.style.opacity = "0";
@@ -507,14 +520,11 @@
       toPage.style.pointerEvents = "none";
       toPage.scrollTop = 0;
 
-      // force reflow
       void toPage.offsetHeight;
 
-      // animate out current
       fromPage.classList.remove("is-active");
       fromPage.classList.add("is-left");
 
-      // animate in target
       toPage.style.transition = "";
       toPage.classList.add("is-active");
       toPage.style.opacity = "1";
@@ -524,7 +534,6 @@
       setBgVisible(to);
 
       window.setTimeout(() => {
-        // cleanup inline styles
         toPage.style.opacity = "";
         toPage.style.transform = "";
         toPage.style.pointerEvents = "";
