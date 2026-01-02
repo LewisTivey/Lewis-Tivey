@@ -518,6 +518,7 @@
       font-size:12px;
       color:rgba(255,255,255,.6);
       pointer-events:auto;
+      text-align:center;
     }
 
     .socials{
@@ -546,6 +547,17 @@
     .social:hover{
       background:rgba(255,255,255,.06);
       color:#fff;
+    }
+
+    /* NEW: copyright line (small + muted, won't affect layout) */
+    .legal{
+      max-width:1000px;
+      margin:0 auto;
+      font-size:10px;
+      line-height:1.35;
+      letter-spacing:.02em;
+      color:rgba(255,255,255,.45);
+      text-wrap:balance;
     }
 
     @media(max-width:900px){
@@ -1111,7 +1123,13 @@
         <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer">Facebook</a>
         <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer">YouTube</a>
       </div>
+
       <span>© <span id="year"></span> Tivey</span>
+
+      <!-- NEW: legal copyright notice -->
+      <div class="legal">
+        © 2026 Lewis Tivey. All music, videos, artwork, imagery, and written content on this site are the intellectual property of Lewis Tivey unless otherwise stated. All rights reserved.
+      </div>
     </div>
   </footer>
 
