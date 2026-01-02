@@ -153,7 +153,6 @@
       padding-left:40px;
     }
 
-    /* FIXED: better rendering, no text-stroke, no geometricPrecision */
     .hero__title{
       font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-weight:400;
@@ -291,6 +290,14 @@
       margin-bottom:8px;
     }
 
+    .album__titleWrap{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      min-width:0;
+      flex:1;
+    }
+
     .album__title{
       margin:0;
       font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -300,6 +307,18 @@
       font-weight:400;
       color:rgba(255,255,255,.92);
       line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .album__date{
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      white-space:nowrap;
+      flex:0 0 auto;
     }
 
     .album__cta{
@@ -324,6 +343,48 @@
 
     /* === Videos === */
     .videosWrap{ margin-top:10px; }
+
+    .filterBar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:0 0 14px;
+    }
+
+    .filterLabel{
+      font-size:11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      white-space:nowrap;
+    }
+
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .filterBtn{
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.2);
+      color:rgba(255,255,255,.86);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+      opacity:.9;
+      white-space:nowrap;
+    }
+    .filterBtn:hover{ opacity:1; background:rgba(255,255,255,.06); }
+    .filterBtn.is-active{
+      border-color:rgba(255,255,255,.45);
+      color:#fff;
+      opacity:1;
+    }
 
     .videosGrid{
       display:grid;
@@ -462,6 +523,7 @@
       letter-spacing:.06em;
       text-transform:uppercase;
       pointer-events:auto;
+      white-space:nowrap;
     }
     .social:hover{
       background:rgba(255,255,255,.06);
@@ -519,6 +581,34 @@
           14px
           calc(240px + env(safe-area-inset-bottom));
       }
+
+      /* FIX B: socials stay ONE ROW on mobile (no piling / no scroll-trap) */
+      .socials{
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        justify-content:center;
+        gap:8px;
+      }
+      .socials::-webkit-scrollbar{ height:0; }
+      .social{
+        flex:0 0 auto;
+        font-size:10px;
+        padding:7px 9px;
+      }
+
+      /* Video filter row behaves on mobile */
+      .filters{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        gap:8px;
+        padding-bottom:2px;
+      }
+      .filters::-webkit-scrollbar{ height:0; }
+      .filterBtn{ flex:0 0 auto; padding:7px 10px; }
     }
   </style>
 </head>
@@ -526,7 +616,7 @@
 <body>
 
   <div class="bg" id="bg">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
       <source src="bg.mp4" type="video/mp4" />
     </video>
     <div class="bg__shade"></div>
@@ -557,41 +647,22 @@
 
         <div class="musicList">
 
-          <!-- Bittersweet -->
+          <!-- Anomaly In The Static (NEW) -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">
-              <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
+            <a class="album__coverLink" href="#" onclick="return false;">
+              <img class="album__cover" src="website album 3.jpg" alt="Anomaly In The Static cover" />
             </a>
             <div class="album__body">
               <div class="album__titleRow">
-                <h3 class="album__title">Bittersweet</h3>
-                <a class="album__cta" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">Open in Spotify</a>
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Anomaly In The Static</h3>
+                  <span class="album__date">2026</span>
+                </div>
+                <span class="album__cta" style="border-bottom:0;opacity:.55;cursor:default;">Coming 2026</span>
               </div>
               <div class="album__text">
-                <p>Bittersweet is the point of entry. As a four-track debut EP, it wasn’t conceived as a statement or a foundation for what followed — it was simply the first time the work was allowed to exist outside the room it was written in. The songs were created without long-term plans or stylistic intent, shaped more by instinct and circumstance than by any clear sense of direction.</p>
-                <p>Musically, the EP is rough and exploratory. Elements of alternative rock and grunge surface clearly, but they are not yet fully formed or consciously integrated. The production is minimal, sometimes fragile, with arrangements that feel tentative rather than assertive. That uncertainty is part of its character. The tracks move between melody and distortion, calm and tension, without fully committing to either, reflecting an artist still testing the boundaries of expression.</p>
-                <p>Emotionally, Bittersweet captures contradiction. There is softness alongside frustration, reflection alongside unease. The writing often feels caught between wanting to hold onto moments and wanting to escape them, giving the EP its name and its tone. Rather than confronting its themes head-on, the record circles them, observing from a distance, as if unsure how much to reveal.</p>
-                <p>In hindsight, Bittersweet functions less as a finished work and more as a sketchbook — an early document of instincts that would later harden into identity. Many of the emotional and sonic ideas that define later releases are present here in embryonic form: the tension between melody and abrasion, the willingness to leave imperfections intact, and the impulse to prioritise feeling over refinement.</p>
-                <p>As a debut, Bittersweet doesn’t attempt to define The Tivey Sound. Instead, it quietly introduces it — incomplete, unresolved, and honest. It remains an important piece of the catalogue not because of what it achieves, but because of what it begins.</p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Subsistence -->
-          <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">
-              <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
-            </a>
-            <div class="album__body">
-              <div class="album__titleRow">
-                <h3 class="album__title">Subsistence</h3>
-                <a class="album__cta" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">Open in Spotify</a>
-              </div>
-              <div class="album__text">
-                <p>Subsistence is a record born out of necessity rather than ambition. It wasn’t written to chase momentum, build an audience, or define a sound — it was written because the songs needed somewhere to go. At the time, making music wasn’t about presentation or cohesion; it was about survival, expression, and expelling pressure before it collapsed inward.</p>
-                <p>Stylistically, Subsistence leans heavily into rawness. The guitars are abrasive and direct, often down-tuned and unpolished, carrying more weight than finesse. Vocals sit somewhere between restraint and eruption, less concerned with clarity than with truth. There’s little interest in smoothing edges — mistakes, noise, and rough transitions are left intact, giving the album a sense of immediacy and unease. It sounds lived-in because it was.</p>
-                <p>Lyrically and emotionally, the album reflects a period of confinement and endurance. Themes of isolation, fatigue, persistence, and quiet defiance run through the tracks, not as statements but as observations. There is anger, but it is inward-facing; frustration, but without theatrics. The record documents a mindset rather than a narrative — the act of getting through, one day at a time.</p>
-                <p>In retrospect, Subsistence stands as the foundation of what would later be recognised as The Tivey Sound. Not because it defines it neatly, but because it establishes the core principles: honesty over polish, atmosphere over perfection, and music as a necessity rather than a product. It is a record that exists because it had to.</p>
+                <p>Anomaly In The Static is the next chapter — sharper edges, bigger hooks, and that same grimy bloodstream underneath. It’s built to feel like a transmission that shouldn’t exist: melody fighting distortion, clarity fighting noise, and everything slightly out of place in the best way.</p>
+                <p>More details (and links) will land here as the release locks in.</p>
               </div>
             </div>
           </article>
@@ -603,7 +674,10 @@
             </a>
             <div class="album__body">
               <div class="album__titleRow">
-                <h3 class="album__title">Bliss</h3>
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Bliss</h3>
+                  <span class="album__date">31 Oct 2024</span>
+                </div>
                 <a class="album__cta" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=CNsvquZ8R5Cf3iEoQuFBuA" target="_blank" rel="noreferrer">Open in Spotify</a>
               </div>
               <div class="album__text">
@@ -611,6 +685,51 @@
                 <p>Sonically, Bliss expands the palette. The guitars remain heavy, but they are more patient, often allowing silence and texture to do as much work as distortion. There is a greater focus on mood, layering, and pacing, with tracks unfolding rather than striking all at once. Vocals become more haunting and melodic, often sitting within the music rather than fighting against it. The aggression is still present, but it is measured — purposeful rather than reactive.</p>
                 <p>Emotionally, the album is more introspective. Rather than documenting endurance, Bliss explores aftermath: what remains once the noise fades, when anger gives way to reflection. There is vulnerability here, but it’s quieter, less confrontational. The record often feels suspended between calm and unease, never fully settling into either — a tension that defines much of its character.</p>
                 <p>Bliss doesn’t replace Subsistence; it responds to it. Together, the two records mark an evolution from raw necessity to conscious expression. Where the former captures survival, the latter captures awareness. In that sense, Bliss is not a departure, but a refinement — the same core voice, speaking more slowly, with more control, and less urgency, but no less weight.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Subsistence -->
+          <article class="album">
+            <a class="album__coverLink" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">
+              <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Subsistence</h3>
+                  <span class="album__date">24 Nov 2023</span>
+                </div>
+                <a class="album__cta" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">Open in Spotify</a>
+              </div>
+              <div class="album__text">
+                <p>Subsistence is a record born out of necessity rather than ambition. It wasn’t written to chase momentum, build an audience, or define a sound — it was written because the songs needed somewhere to go. At the time, making music wasn’t about presentation or cohesion; it was about survival, expression, and expelling pressure before it collapsed inward.</p>
+                <p>Stylistically, Subsistence leans heavily into rawness. The guitars are abrasive and direct, often down-tuned and unpolished, carrying more weight than finesse. Vocals sit somewhere between restraint and eruption, less concerned with clarity than with truth. There’s little interest in smoothing edges — mistakes, noise, and rough transitions are left intact, giving the album a sense of immediacy and unease. It sounds lived-in because it was.</p>
+                <p>Lyrically and emotionally, the album reflects a period of confinement and endurance. Themes of isolation, fatigue, persistence, and quiet defiance run through the tracks, not as statements but as observations. There is anger, but it is inward-facing; frustration, but without theatrics. The record documents a mindset rather than a narrative — the act of getting through, one day at a time.</p>
+                <p>In retrospect, Subsistence stands as the foundation of what would later be recognised as The Tivey Sound. Not because it defines it neatly, but because it establishes the core principles: honesty over polish, atmosphere over perfection, and music as a necessity rather than a product. It is a record that exists because it had to.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bittersweet -->
+          <article class="album">
+            <a class="album__coverLink" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">
+              <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Bittersweet</h3>
+                  <span class="album__date">08 May 2022</span>
+                </div>
+                <a class="album__cta" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">Open in Spotify</a>
+              </div>
+              <div class="album__text">
+                <p>Bittersweet is the point of entry. As a four-track debut EP, it wasn’t conceived as a statement or a foundation for what followed — it was simply the first time the work was allowed to exist outside the room it was written in. The songs were created without long-term plans or stylistic intent, shaped more by instinct and circumstance than by any clear sense of direction.</p>
+                <p>Musically, the EP is rough and exploratory. Elements of alternative rock and grunge surface clearly, but they are not yet fully formed or consciously integrated. The production is minimal, sometimes fragile, with arrangements that feel tentative rather than assertive. That uncertainty is part of its character. The tracks move between melody and distortion, calm and tension, without fully committing to either, reflecting an artist still testing the boundaries of expression.</p>
+                <p>Emotionally, Bittersweet captures contradiction. There is softness alongside frustration, reflection alongside unease. The writing often feels caught between wanting to hold onto moments and wanting to escape them, giving the EP its name and its tone. Rather than confronting its themes head-on, the record circles them, observing from a distance, as if unsure how much to reveal.</p>
+                <p>In hindsight, Bittersweet functions less as a finished work and more as a sketchbook — an early document of instincts that would later harden into identity. Many of the emotional and sonic ideas that define later releases are present here in embryonic form: the tension between melody and abrasion, the willingness to leave imperfections intact, and the impulse to prioritise feeling over refinement.</p>
+                <p>As a debut, Bittersweet doesn’t attempt to define The Tivey Sound. Instead, it quietly introduces it — incomplete, unresolved, and honest. It remains an important piece of the catalogue not because of what it achieves, but because of what it begins.</p>
               </div>
             </div>
           </article>
@@ -625,9 +744,84 @@
         <h2>Videos</h2>
 
         <div class="videosWrap">
-          <div class="videosGrid">
 
-            <article class="vid">
+          <!-- Toggle filter -->
+          <div class="filterBar">
+            <span class="filterLabel">Filter:</span>
+            <div class="filters" id="videoFilters">
+              <button class="filterBtn is-active" data-filter="ALL">All</button>
+              <button class="filterBtn" data-filter="Anomaly In The Static">Anomaly In The Static</button>
+              <button class="filterBtn" data-filter="Bliss">Bliss</button>
+              <button class="filterBtn" data-filter="Subsistence">Subsistence</button>
+              <button class="filterBtn" data-filter="Bittersweet">Bittersweet</button>
+            </div>
+          </div>
+
+          <div class="videosGrid" id="videosGrid">
+
+            <!-- Anomaly In The Static -->
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/XONxaiZ8YYM?rel=0"
+                  title="Bleach My Halo"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Bleach My Halo</h3>
+                <a class="vid__link" href="https://youtu.be/XONxaiZ8YYM?si=BpdKYppZcI_yiVxi" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/BQKpcHxnHbM?rel=0"
+                  title="Whatchamacallit"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Whatchamacallit</h3>
+                <a class="vid__link" href="https://youtu.be/BQKpcHxnHbM?si=EfsxgDuuuiyeFQ_-" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Fs3pG9mN6aA?rel=0"
+                  title="Through The Looking Glass"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Through The Looking Glass</h3>
+                <a class="vid__link" href="https://youtu.be/Fs3pG9mN6aA?si=aK9_GGRywgT99Yad" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Bliss -->
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VKTDFuB_dh4?rel=0"
+                  title="NaySay"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">NaySay</h3>
+                <a class="vid__link" href="https://youtu.be/VKTDFuB_dh4?si=Dnwp4PDX5BG16yWf" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
               <div class="vid__frame">
                 <iframe
                   src="https://www.youtube.com/embed/wNb0m2_FqLY?rel=0"
@@ -642,7 +836,7 @@
               </div>
             </article>
 
-            <article class="vid">
+            <article class="vid" data-album="Bliss">
               <div class="vid__frame">
                 <iframe
                   src="https://www.youtube.com/embed/bb59hgtVoYw?rel=0"
@@ -657,7 +851,68 @@
               </div>
             </article>
 
-            <article class="vid">
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/MSQcz6hN1X4?rel=0"
+                  title="Renegade"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Renegade</h3>
+                <a class="vid__link" href="https://youtu.be/MSQcz6hN1X4?si=53GS2YiIhQjbXhks" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/1jI3QIHNmnA?rel=0"
+                  title="Quote The Raven"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Quote The Raven</h3>
+                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA?si=a8XQH1W9ZIPsM1Tg" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VTcyqyxKJm4?rel=0"
+                  title="Clandesdine"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Clandesdine</h3>
+                <a class="vid__link" href="https://youtu.be/VTcyqyxKJm4?si=A-SD9oGLQ3bqXzkC" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/m5a51vehYb0?rel=0"
+                  title="Kajillion"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Kajillion</h3>
+                <a class="vid__link" href="https://youtu.be/m5a51vehYb0?si=7GU3wndZs3MvfyXh" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <!-- Subsistence -->
+            <article class="vid" data-album="Subsistence">
               <div class="vid__frame">
                 <iframe
                   src="https://www.youtube.com/embed/Vb_bnvKovBE?rel=0"
@@ -672,7 +927,22 @@
               </div>
             </article>
 
-            <article class="vid">
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/I3V8IE9A5Bo?rel=0"
+                  title="Ozone"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Ozone</h3>
+                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo?si=f2C1uwmIwbBGquwj" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
               <div class="vid__frame">
                 <iframe
                   src="https://www.youtube.com/embed/GT-iMDkMVDQ?rel=0"
@@ -683,26 +953,42 @@
               </div>
               <div class="vid__body">
                 <h3 class="vid__title">Never Better</h3>
-                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ?si=pKiOlx6RUMjNXp5G" target="_blank" rel="noreferrer">Open on YouTube</a>
+                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ?si=GgK5Xn9jpNVxO7P5" target="_blank" rel="noreferrer">Open on YouTube</a>
               </div>
             </article>
 
-            <article class="vid">
+            <article class="vid" data-album="Subsistence">
               <div class="vid__frame">
                 <iframe
-                  src="https://www.youtube.com/embed/oQR8nuWojPo?rel=0"
-                  title="Flock"
+                  src="https://www.youtube.com/embed/il9Vk5yacoU?rel=0"
+                  title="Let It Rain"
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen></iframe>
               </div>
               <div class="vid__body">
-                <h3 class="vid__title">Flock</h3>
-                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo?si=vCbyg9FgGFvsvRDb" target="_blank" rel="noreferrer">Open on YouTube</a>
+                <h3 class="vid__title">Let It Rain</h3>
+                <a class="vid__link" href="https://youtu.be/il9Vk5yacoU?si=7VyM9JcKiFL_EVpm" target="_blank" rel="noreferrer">Open on YouTube</a>
               </div>
             </article>
 
-            <article class="vid">
+            <!-- Bittersweet -->
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/9aODNNn63Sc?rel=0"
+                  title="Friendly Neighbourhood Infiltrator"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Friendly Neighbourhood Infiltrator</h3>
+                <a class="vid__link" href="https://youtu.be/9aODNNn63Sc?si=cGFOynSXIuSh-9Tb" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
               <div class="vid__frame">
                 <iframe
                   src="https://www.youtube.com/embed/SE6kcLwgyPE?rel=0"
@@ -714,6 +1000,21 @@
               <div class="vid__body">
                 <h3 class="vid__title">Seed You</h3>
                 <a class="vid__link" href="https://youtu.be/SE6kcLwgyPE?si=33xo_-BTZ44Pn6Ff" target="_blank" rel="noreferrer">Open on YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/oQR8nuWojPo?rel=0"
+                  title="Flock"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Flock</h3>
+                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo?si=vCbyg9FgGFvsvRDb" target="_blank" rel="noreferrer">Open on YouTube</a>
               </div>
             </article>
 
@@ -791,15 +1092,51 @@
   <script>
     const pages=[...document.querySelectorAll(".page")];
     const bg=document.getElementById("bg");
+    const bgVideo=document.getElementById("bgVideo");
     document.getElementById("year").textContent=new Date().getFullYear();
     let current="home",anim=false;
+
+    // --- FIX C: keep background video alive on mobile Chrome ---
+    function tryPlayBgVideo(){
+      if(!bgVideo) return;
+      bgVideo.muted = true;            // required for autoplay
+      bgVideo.playsInline = true;
+      bgVideo.setAttribute("playsinline","");
+      bgVideo.setAttribute("muted","");
+      bgVideo.setAttribute("autoplay","");
+      const p = bgVideo.play();
+      if(p && typeof p.catch === "function"){
+        p.catch(()=>{ /* autoplay blocked until user gesture */ });
+      }
+    }
+
+    // Attempt play on load + first user gesture + when tab becomes visible again
+    window.addEventListener("load", tryPlayBgVideo, {passive:true});
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
+    });
+    // If Chrome pauses it randomly, poke it back on interaction
+    ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
+      document.addEventListener(evt, ()=>{
+        if(current==="home") tryPlayBgVideo();
+      }, {passive:true});
+    });
+    // Also recover from pause/stall (some mobiles do this)
+    ["pause","stalled","suspend","ended"].forEach(evt=>{
+      bgVideo?.addEventListener(evt, ()=>{
+        if(current==="home") tryPlayBgVideo();
+      });
+    });
 
     function show(page){
       pages.forEach(p=>p.classList.remove("is-active"));
       const next=pages.find(p=>p.dataset.page===page) || pages.find(p=>p.dataset.page==="home");
       next.classList.add("is-active");
       current=next.dataset.page;
-      bg.style.display=current==="home"?"block":"none";
+
+      bg.style.display = current==="home" ? "block" : "none";
+      if(current==="home") tryPlayBgVideo();
+
       history.replaceState(null,"","#"+current);
     }
 
@@ -818,6 +1155,29 @@
     const start=(location.hash||"#home").replace("#","");
     show(start);
     window.addEventListener("hashchange", ()=>show((location.hash||"#home").replace("#","")));
+
+    // --- Video filter toggle ---
+    const filterWrap = document.getElementById("videoFilters");
+    const allVids = [...document.querySelectorAll(".vid[data-album]")];
+
+    function setFilter(name){
+      const buttons = [...filterWrap.querySelectorAll(".filterBtn")];
+      buttons.forEach(btn => btn.classList.toggle("is-active", btn.dataset.filter===name));
+
+      allVids.forEach(card=>{
+        const album = card.dataset.album;
+        const show = (name==="ALL") || (album===name);
+        card.style.display = show ? "" : "none";
+      });
+    }
+
+    filterWrap?.addEventListener("click", (e)=>{
+      const btn = e.target.closest(".filterBtn");
+      if(!btn) return;
+      setFilter(btn.dataset.filter);
+    });
+
+    setFilter("ALL");
   </script>
 
 </body>
