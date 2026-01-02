@@ -525,7 +525,6 @@
       gap:12px;
       flex-wrap:wrap;
       justify-content:center;
-      align-items:center;
     }
 
     .social{
@@ -543,20 +542,10 @@
       text-transform:uppercase;
       pointer-events:auto;
       white-space:nowrap;
-      line-height:1;
     }
     .social:hover{
       background:rgba(255,255,255,.06);
       color:#fff;
-    }
-
-    /* NEW: icon styling */
-    .social__icon{
-      width:14px;
-      height:14px;
-      display:inline-block;
-      opacity:.92;
-      filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
     }
 
     @media(max-width:900px){
@@ -625,10 +614,6 @@
         flex:0 0 auto;
         font-size:10px;
         padding:7px 9px;
-      }
-      .social__icon{
-        width:13px;
-        height:13px;
       }
 
       /* Video filter row behaves on mobile */
@@ -976,7 +961,7 @@
                   loading="lazy"></iframe>
               </div>
               <div class="vid__body">
-                <h3 class="vid__title">Ozone</h3                >
+                <h3 class="vid__title">Ozone</h3>
                 <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo" target="_blank" rel="noreferrer">YouTube</a>
               </div>
             </article>
@@ -1121,30 +1106,10 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="socials">
-        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-spotify.svg" alt="" aria-hidden="true" />
-          Spotify
-        </a>
-        <a class="social" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-applemusic.svg" alt="" aria-hidden="true" />
-          Apple Music
-        </a>
-        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-instagram.svg" alt="" aria-hidden="true" />
-          Instagram
-        </a>
-        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-facebook.svg" alt="" aria-hidden="true" />
-          Facebook
-        </a>
-        <a class="social" href="https://x.com/TiveyLewis" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-x.svg" alt="" aria-hidden="true" />
-          X
-        </a>
-        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer">
-          <img class="social__icon" src="icon-youtube.svg" alt="" aria-hidden="true" />
-          YouTube
-        </a>
+        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer">Spotify</a>
+        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer">Facebook</a>
+        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer">YouTube</a>
       </div>
       <span>© <span id="year"></span> Tivey</span>
     </div>
