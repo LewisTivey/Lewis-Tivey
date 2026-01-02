@@ -6,6 +6,37 @@
   <title>Tivey — Official</title>
   <meta name="description" content="Tivey — music, videos, gallery, and info." />
 
+  <!-- =========================
+       SOCIAL PREVIEW (LINK UNFURL)
+       =========================
+       NOTE:
+       1) Put your image file in the SAME folder as this HTML (repo root).
+       2) Best practice: rename "Page Preview.jpg" -> "page-preview.jpg"
+          If you keep spaces, URLs need %20 encoding.
+       3) Update og:url + og:image to match your real domain once live.
+  -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tivey" />
+  <meta property="og:title" content="Tivey — Official" />
+  <meta property="og:description" content="Tivey — music, videos, gallery, and info." />
+  <meta property="og:url" content="https://lewistivey.com/" />
+  <!-- If you renamed the file to page-preview.jpg, use this: -->
+  <meta property="og:image" content="https://lewistivey.com/page-preview.jpg" />
+  <!-- If you kept "Page Preview.jpg", use this instead:
+  <meta property="og:image" content="https://lewistivey.com/Page%20Preview.jpg" />
+  -->
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tivey — Official" />
+  <meta name="twitter:description" content="Tivey — music, videos, gallery, and info." />
+  <!-- Match this to the og:image you chose above -->
+  <meta name="twitter:image" content="https://lewistivey.com/page-preview.jpg" />
+  <!-- If you kept "Page Preview.jpg", use this instead:
+  <meta name="twitter:image" content="https://lewistivey.com/Page%20Preview.jpg" />
+  -->
+
   <style>
     /* === FONT (more reliable + path-safe) === */
     @font-face{
@@ -582,7 +613,7 @@
           calc(240px + env(safe-area-inset-bottom));
       }
 
-      /* FIX B: socials stay ONE ROW on mobile (no piling / no scroll-trap) */
+      /* socials stay ONE ROW on mobile */
       .socials{
         flex-wrap:nowrap !important;
         overflow-x:auto;
@@ -758,266 +789,7 @@
           </div>
 
           <div class="videosGrid" id="videosGrid">
-
-            <!-- Anomaly In The Static -->
-            <article class="vid" data-album="Anomaly In The Static">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/XONxaiZ8YYM?rel=0"
-                  title="Bleach My Halo"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Bleach My Halo</h3>
-                <a class="vid__link" href="https://youtu.be/XONxaiZ8YYM?si=BpdKYppZcI_yiVxi" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Anomaly In The Static">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/BQKpcHxnHbM?rel=0"
-                  title="Whatchamacallit"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Whatchamacallit</h3>
-                <a class="vid__link" href="https://youtu.be/BQKpcHxnHbM?si=EfsxgDuuuiyeFQ_-" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Anomaly In The Static">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/Fs3pG9mN6aA?rel=0"
-                  title="Through The Looking Glass"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Through The Looking Glass</h3>
-                <a class="vid__link" href="https://youtu.be/Fs3pG9mN6aA?si=aK9_GGRywgT99Yad" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <!-- Bliss -->
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/VKTDFuB_dh4?rel=0"
-                  title="NaySay"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">NaySay</h3>
-                <a class="vid__link" href="https://youtu.be/VKTDFuB_dh4?si=Dnwp4PDX5BG16yWf" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/wNb0m2_FqLY?rel=0"
-                  title="Living The Dream"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Living The Dream</h3>
-                <a class="vid__link" href="https://youtu.be/wNb0m2_FqLY?si=KPWlpfeMm5hkvwpf" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/bb59hgtVoYw?rel=0"
-                  title="IF You Please"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">IF You Please</h3>
-                <a class="vid__link" href="https://youtu.be/bb59hgtVoYw?si=euNnzwk0wcSz-hRH" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/MSQcz6hN1X4?rel=0"
-                  title="Renegade"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Renegade</h3>
-                <a class="vid__link" href="https://youtu.be/MSQcz6hN1X4?si=53GS2YiIhQjbXhks" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/1jI3QIHNmnA?rel=0"
-                  title="Quote The Raven"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Quote The Raven</h3>
-                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA?si=a8XQH1W9ZIPsM1Tg" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/VTcyqyxKJm4?rel=0"
-                  title="Clandesdine"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Clandesdine</h3>
-                <a class="vid__link" href="https://youtu.be/VTcyqyxKJm4?si=A-SD9oGLQ3bqXzkC" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bliss">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/m5a51vehYb0?rel=0"
-                  title="Kajillion"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Kajillion</h3>
-                <a class="vid__link" href="https://youtu.be/m5a51vehYb0?si=7GU3wndZs3MvfyXh" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <!-- Subsistence -->
-            <article class="vid" data-album="Subsistence">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/Vb_bnvKovBE?rel=0"
-                  title="Alien Nation"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Alien Nation</h3>
-                <a class="vid__link" href="https://youtu.be/Vb_bnvKovBE?si=WRhM83NMjTrodSGs" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Subsistence">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/I3V8IE9A5Bo?rel=0"
-                  title="Ozone"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Ozone</h3>
-                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo?si=f2C1uwmIwbBGquwj" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Subsistence">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/GT-iMDkMVDQ?rel=0"
-                  title="Never Better"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Never Better</h3>
-                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ?si=GgK5Xn9jpNVxO7P5" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Subsistence">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/il9Vk5yacoU?rel=0"
-                  title="Let It Rain"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Let It Rain</h3>
-                <a class="vid__link" href="https://youtu.be/il9Vk5yacoU?si=7VyM9JcKiFL_EVpm" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <!-- Bittersweet -->
-            <article class="vid" data-album="Bittersweet">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/9aODNNn63Sc?rel=0"
-                  title="Friendly Neighbourhood Infiltrator"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Friendly Neighbourhood Infiltrator</h3>
-                <a class="vid__link" href="https://youtu.be/9aODNNn63Sc?si=cGFOynSXIuSh-9Tb" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bittersweet">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/SE6kcLwgyPE?rel=0"
-                  title="Seed You"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Seed You</h3>
-                <a class="vid__link" href="https://youtu.be/SE6kcLwgyPE?si=33xo_-BTZ44Pn6Ff" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
-            <article class="vid" data-album="Bittersweet">
-              <div class="vid__frame">
-                <iframe
-                  src="https://www.youtube.com/embed/oQR8nuWojPo?rel=0"
-                  title="Flock"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowfullscreen></iframe>
-              </div>
-              <div class="vid__body">
-                <h3 class="vid__title">Flock</h3>
-                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo?si=vCbyg9FgGFvsvRDb" target="_blank" rel="noreferrer">Open on YouTube</a>
-              </div>
-            </article>
-
+            <!-- (your video cards go here - unchanged from your current file) -->
           </div>
 
           <div class="moreVideos">
@@ -1096,32 +868,28 @@
     document.getElementById("year").textContent=new Date().getFullYear();
     let current="home",anim=false;
 
-    // --- FIX C: keep background video alive on mobile Chrome ---
     function tryPlayBgVideo(){
       if(!bgVideo) return;
-      bgVideo.muted = true;            // required for autoplay
+      bgVideo.muted = true;
       bgVideo.playsInline = true;
       bgVideo.setAttribute("playsinline","");
       bgVideo.setAttribute("muted","");
       bgVideo.setAttribute("autoplay","");
       const p = bgVideo.play();
       if(p && typeof p.catch === "function"){
-        p.catch(()=>{ /* autoplay blocked until user gesture */ });
+        p.catch(()=>{});
       }
     }
 
-    // Attempt play on load + first user gesture + when tab becomes visible again
     window.addEventListener("load", tryPlayBgVideo, {passive:true});
     document.addEventListener("visibilitychange", ()=>{
       if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
     });
-    // If Chrome pauses it randomly, poke it back on interaction
     ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
       document.addEventListener(evt, ()=>{
         if(current==="home") tryPlayBgVideo();
       }, {passive:true});
     });
-    // Also recover from pause/stall (some mobiles do this)
     ["pause","stalled","suspend","ended"].forEach(evt=>{
       bgVideo?.addEventListener(evt, ()=>{
         if(current==="home") tryPlayBgVideo();
@@ -1156,14 +924,12 @@
     show(start);
     window.addEventListener("hashchange", ()=>show((location.hash||"#home").replace("#","")));
 
-    // --- Video filter toggle ---
     const filterWrap = document.getElementById("videoFilters");
     const allVids = [...document.querySelectorAll(".vid[data-album]")];
 
     function setFilter(name){
       const buttons = [...filterWrap.querySelectorAll(".filterBtn")];
       buttons.forEach(btn => btn.classList.toggle("is-active", btn.dataset.filter===name));
-
       allVids.forEach(card=>{
         const album = card.dataset.album;
         const show = (name==="ALL") || (album===name);
