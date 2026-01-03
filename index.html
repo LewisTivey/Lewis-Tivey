@@ -278,12 +278,14 @@
       overflow:hidden;
     }
 
+    /* clickable cover */
     .album__coverLink{
       flex:0 0 auto;
       display:block;
       width: clamp(160px, 24vw, 260px);
       aspect-ratio: 1 / 1;
       overflow:hidden;
+      cursor:pointer;
     }
 
     .album__cover{
@@ -364,14 +366,14 @@
     .album__text p{ margin:0 0 10px; }
     .album__text p:last-child{ margin-bottom:0; }
 
-    /* album platform links row */
+    /* platforms row */
     .platforms{
       display:flex;
       align-items:center;
       gap:10px;
       flex-wrap:wrap;
       margin:8px 0 0;
-      scroll-margin-top: 120px; /* helps scroll land nicely under topbar */
+      scroll-margin-top: 120px;
     }
     .platforms__label{
       font-size:11px;
@@ -593,7 +595,6 @@
       color:#fff;
     }
 
-    /* copyright line */
     .legal{
       max-width:1000px;
       margin:0 auto;
@@ -744,7 +745,7 @@
 
           <!-- Bliss -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=davyw2KJTnWEH_K373Clqg" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Bliss - listen options">
               <img class="album__cover" src="website album 2.jpg" alt="Bliss cover" />
             </a>
             <div class="album__body">
@@ -775,7 +776,7 @@
 
           <!-- Subsistence -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=LxbXTSeVQMu2PzlhobfSYw" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Subsistence - listen options">
               <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
             </a>
             <div class="album__body">
@@ -806,7 +807,7 @@
 
           <!-- Bittersweet -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=TMp0fnTRQqeOT7tOpHOhpw" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Bittersweet - listen options">
               <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
             </a>
             <div class="album__body">
@@ -859,8 +860,274 @@
           </div>
 
           <div class="videosGrid" id="videosGrid">
-            <!-- (videos unchanged) -->
-            <!-- ... your existing video cards stay exactly as they are ... -->
+
+            <!-- =========================
+                 Anomaly In The Static
+                 ========================= -->
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/XONxaiZ8YYM"
+                  title="Tivey — Bleach My Halo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Bleach My Halo</h3>
+                <a class="vid__link" href="https://youtu.be/XONxaiZ8YYM" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/BQKpcHxnHbM"
+                  title="Tivey — Whatchamacallit"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Whatchamacallit</h3>
+                <a class="vid__link" href="https://youtu.be/BQKpcHxnHbM" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Fs3pG9mN6aA"
+                  title="Tivey — Through The Looking Glass"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Through The Looking Glass</h3>
+                <a class="vid__link" href="https://youtu.be/Fs3pG9mN6aA" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Bliss
+                 ========================= -->
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VKTDFuB_dh4"
+                  title="Tivey — NaySay"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">NaySay</h3>
+                <a class="vid__link" href="https://youtu.be/VKTDFuB_dh4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/wNb0m2_FqLY"
+                  title="Tivey — Living The Dream"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Living The Dream</h3>
+                <a class="vid__link" href="https://youtu.be/wNb0m2_FqLY" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/bb59hgtVoYw"
+                  title="Tivey — If You Please"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">If You Please</h3>
+                <a class="vid__link" href="https://youtu.be/bb59hgtVoYw" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/MSQcz6hN1X4"
+                  title="Tivey — Renegade"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Renegade</h3>
+                <a class="vid__link" href="https://youtu.be/MSQcz6hN1X4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/1jI3QIHNmnA"
+                  title="Tivey — Quote The Raven"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Quote The Raven</h3>
+                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VTcyqyxKJm4"
+                  title="Tivey — Clandesdine"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Clandesdine</h3>
+                <a class="vid__link" href="https://youtu.be/VTcyqyxKJm4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/m5a51vehYb0"
+                  title="Tivey — Kajillion"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Kajillion</h3>
+                <a class="vid__link" href="https://youtu.be/m5a51vehYb0" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Subsistence
+                 ========================= -->
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Vb_bnvKovBE"
+                  title="Tivey — Alien Nation"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Alien Nation</h3>
+                <a class="vid__link" href="https://youtu.be/Vb_bnvKovBE" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/I3V8IE9A5Bo"
+                  title="Tivey — Ozone"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Ozone</h3>
+                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/GT-iMDkMVDQ"
+                  title="Tivey — NEVER BETTER"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">NEVER BETTER</h3>
+                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/il9Vk5yacoU"
+                  title="Tivey — Let It Rain"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Let It Rain</h3>
+                <a class="vid__link" href="https://youtu.be/il9Vk5yacoU" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Bittersweet
+                 ========================= -->
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/9aODNNn63Sc"
+                  title="Tivey — Friendly Neighbourhood Infiltrator"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Friendly Neighbourhood Infiltrator</h3>
+                <a class="vid__link" href="https://youtu.be/9aODNNn63Sc" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/SE6kcLwgyPE"
+                  title="Tivey — Seed You"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Seed You</h3>
+                <a class="vid__link" href="https://youtu.be/SE6kcLwgyPE" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/oQR8nuWojPo"
+                  title="Tivey — Flock"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Flock</h3>
+                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
           </div>
 
           <div class="moreVideos">
@@ -1021,9 +1288,9 @@
 
     setFilter("ALL");
 
-    /* NEW: neutral "Listen" button -> scrolls to the platform row inside that album */
-    function scrollToPlatforms(btn){
-      const album = btn.closest(".album");
+    /* "Listen" and cover click -> scroll to the platforms row inside that album */
+    function scrollToPlatforms(el){
+      const album = el.closest(".album");
       if(!album) return;
       const platforms = album.querySelector(".platforms");
       if(!platforms) return;
