@@ -576,12 +576,19 @@
       text-align:center;
     }
 
+    /* ✅ One-row socials bar (scrolls if needed) */
     .socials{
       display:flex;
       gap:12px;
-      flex-wrap:wrap;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
       justify-content:center;
+      max-width:100%;
+      padding-bottom:2px;
     }
+    .socials::-webkit-scrollbar{ height:0; }
 
     .social{
       display:inline-flex;
@@ -598,10 +605,19 @@
       text-transform:uppercase;
       pointer-events:auto;
       white-space:nowrap;
+      flex:0 0 auto;
     }
     .social:hover{
       background:rgba(255,255,255,.06);
       color:#fff;
+    }
+
+    .social svg{
+      width:14px;
+      height:14px;
+      display:block;
+      fill:currentColor;
+      opacity:.92;
     }
 
     .legal{
@@ -647,33 +663,25 @@
       .topbar{ gap:10px; }
       .brand__text{ font-size:22px; }
 
+      /* ✅ FIX: Stop album cover going nuclear on mobile */
       .album{ flex-direction:column; }
       .album__coverLink{
         width:100%;
         max-width:none;
-        aspect-ratio:auto;
+        aspect-ratio: 1 / 1;       /* keep it square */
+        max-height: 340px;         /* hard cap */
       }
-      .album__cover{ height:auto; }
+      .album__cover{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
       .page{
         padding:
           calc(92px + env(safe-area-inset-top))
           14px
           calc(240px + env(safe-area-inset-bottom));
-      }
-
-      .socials{
-        flex-wrap:nowrap !important;
-        overflow-x:auto;
-        overflow-y:hidden;
-        -webkit-overflow-scrolling:touch;
-        justify-content:center;
-        gap:8px;
-      }
-      .socials::-webkit-scrollbar{ height:0; }
-      .social{
-        flex:0 0 auto;
-        font-size:10px;
-        padding:7px 9px;
       }
 
       .filters{
@@ -774,7 +782,6 @@
                   <h3 class="album__title">Bliss</h3>
                   <span class="album__date">31 Oct 2024</span>
                 </div>
-                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Bliss links">
@@ -805,7 +812,6 @@
                   <h3 class="album__title">Subsistence</h3>
                   <span class="album__date">24 Nov 2023</span>
                 </div>
-                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Subsistence links">
@@ -836,7 +842,6 @@
                   <h3 class="album__title">Bittersweet</h3>
                   <span class="album__date">08 May 2022</span>
                 </div>
-                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Bittersweet links">
@@ -851,7 +856,7 @@
                 <p>Bittersweet is the point of entry. As a four-track debut EP, it wasn’t conceived as a statement or a foundation for what followed — it was simply the first time the work was allowed to exist outside the room it was written in. The songs were created without long-term plans or stylistic intent, shaped more by instinct and circumstance than by any clear sense of direction.</p>
                 <p>Musically, the EP is rough and exploratory. Elements of alternative rock and grunge surface clearly, but they are not yet fully formed or consciously integrated. The production is minimal, sometimes fragile, with arrangements that feel tentative rather than assertive. That uncertainty is part of its character. The tracks move between melody and distortion, calm and tension, without fully committing to either, reflecting an artist still testing the boundaries of expression.</p>
                 <p>Emotionally, Bittersweet captures contradiction. There is softness alongside frustration, reflection alongside unease. The writing often feels caught between wanting to hold onto moments and wanting to escape them, giving the EP its name and its tone. Rather than confronting its themes head-on, the record circles them, observing from a distance, as if unsure how much to reveal.</p>
-                <p>In hindsight, Bittersweet functions less as a finished work and more as a sketchbook — an early document of instincts that would later harden into identity. Many of the emotional and sonic ideas that define later releases are present here in embryonic form: the tension between melody and abrasion, the willingness to leave imperfections intact, and the impulse to prioritise feeling over refinement.</p>
+                <p>In hindsight, Bittersweet functions less as a finished work and more as a sketchbook — an early document of instincts that would later harden into identity.</p>
                 <p>As a debut, Bittersweet doesn’t attempt to define The Tivey Sound. Instead, it quietly introduces it — incomplete, unresolved, and honest. It remains an important piece of the catalogue not because of what it achieves, but because of what it begins.</p>
               </div>
             </div>
@@ -1209,10 +1214,41 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="socials">
-        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer">Spotify</a>
-        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer">Instagram</a>
-        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer">Facebook</a>
-        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer">YouTube</a>
+        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer" aria-label="Spotify">
+          <!-- Spotify -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.59 14.53a.75.75 0 0 1-1.03.25c-2.82-1.73-6.38-2.12-10.58-1.16a.75.75 0 1 1-.33-1.46c4.6-1.05 8.54-.6 11.69 1.33.35.2.46.66.25 1.04zm1.47-2.73a.9.9 0 0 1-1.24.3c-3.23-1.98-8.15-2.56-11.95-1.4a.9.9 0 1 1-.52-1.72c4.34-1.32 9.74-.68 13.47 1.61.42.26.55.81.24 1.21zm.12-2.86C14.5 8.6 8.55 8.44 5.05 9.5a1 1 0 0 1-.58-1.92c4.02-1.22 10.7-1.04 14.97 1.45a1 1 0 0 1-1.25 1.61z"/></svg>
+          Spotify
+        </a>
+
+        <a class="social" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer" aria-label="Apple Music">
+          <!-- Apple Music (simple note icon) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a1 1 0 0 1 1 1v10.4a3.6 3.6 0 1 1-2-3.25V7.1l-7 1.75V16.4a3.6 3.6 0 1 1-2-3.25V7.5a1 1 0 0 1 .76-.97l10-2.5A1 1 0 0 1 17 3z"/></svg>
+          Apple Music
+        </a>
+
+        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <!-- Instagram -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5zM18 6.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+          Instagram
+        </a>
+
+        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer" aria-label="Facebook">
+          <!-- Facebook -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.87.24-1.46 1.5-1.46H16.7V5.1c-.3-.04-1.33-.12-2.52-.12-2.5 0-4.2 1.52-4.2 4.32V11H7.3v3H10v8h3.5z"/></svg>
+          Facebook
+        </a>
+
+        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer" aria-label="YouTube">
+          <!-- YouTube -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.2 31.2 0 0 0 2 12a31.2 31.2 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 22 12a31.2 31.2 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+          YouTube
+        </a>
+
+        <a class="social" href="https://x.com/TiveyLewis" target="_blank" rel="noreferrer" aria-label="X">
+          <!-- X -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.5l-5.1-6.6L5.7 22H2.6l7.3-8.4L1 2h6.7l4.6 6l5.6-6zM17 19.1h1.8L7 4.8H5.1L17 19.1z"/></svg>
+          X
+        </a>
       </div>
 
       <span>© <span id="year"></span> Tivey</span>
@@ -1240,7 +1276,7 @@
     }
 
     function resetTopNavScroll(){
-      if(topNav) topNav.scrollLeft = 0;  // ✅ fixes "opens halfway scrolled" nav
+      if(topNav) topNav.scrollLeft = 0;
     }
 
     function tryPlayBgVideo(){
@@ -1281,7 +1317,6 @@
     function show(page){
       pages.forEach(p=>p.classList.remove("is-active"));
 
-      // guard: if someone visits old #gallery link, send them home
       if(page==="gallery") page="home";
 
       const next=pages.find(p=>p.dataset.page===page) || pages.find(p=>p.dataset.page==="home");
