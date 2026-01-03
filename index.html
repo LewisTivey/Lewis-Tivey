@@ -6,24 +6,19 @@
   <title>Tivey — Official</title>
   <meta name="description" content="Tivey — music, videos, and info." />
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://lewistivey.com/" />
-
-  <!-- Favicons / app icons -->
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta name="theme-color" content="#000000" />
-
-  <!-- Google Search Console -->
+  <!-- ✅ Google Search Console verification -->
   <meta name="google-site-verification" content="ahXHwhEQxUxQkdmzkJIBRJA3bVZ_ft_DQaQ4B5wljrk" />
 
-  <!-- Social preview -->
+  <!-- =========================
+       SOCIAL PREVIEW (LINK UNFURL)
+       ========================= -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Tivey" />
   <meta property="og:title" content="Tivey — Official" />
   <meta property="og:description" content="Tivey — music, videos, and info." />
   <meta property="og:url" content="https://lewistivey.com/" />
   <meta property="og:image" content="https://lewistivey.com/Page-Preview.jpg" />
+  <meta property="og:image:secure_url" content="https://lewistivey.com/Page-Preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -33,7 +28,7 @@
   <meta name="twitter:image" content="https://lewistivey.com/Page-Preview.jpg" />
 
   <style>
-    /* === FONT === */
+    /* === FONT (more reliable + path-safe) === */
     @font-face{
       font-family:"Eordeoghlakat";
       src:
@@ -107,15 +102,17 @@
       border:0;
       cursor:pointer;
       padding:6px 8px;
-      text-decoration:none;
     }
     .brand__text{
-      font-family:"Eordeoghlakat";
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       font-size:24px;
       letter-spacing:.12em;
       text-transform:uppercase;
       color:rgba(255,255,255,.88);
-      text-shadow:0 1px 1px rgba(0,0,0,.75);
+      text-shadow: 0 1px 1px rgba(0,0,0,.75);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
       line-height:1;
     }
 
@@ -132,31 +129,1252 @@
       cursor:pointer;
       opacity:.88;
       white-space:nowrap;
-      text-decoration:none;
     }
     .nav__link:hover{ opacity:1; }
 
-    /* (everything else unchanged) */
+    /* === Pages === */
+    .viewport{ position:fixed; inset:0; }
+    .page{
+      position:absolute;
+      inset:0;
+      padding:
+        calc(96px + env(safe-area-inset-top))
+        18px
+        calc(220px + env(safe-area-inset-bottom));
+      overflow:auto;
+      opacity:0;
+      transform:translateX(12%);
+      pointer-events:none;
+      transition:opacity .35s ease, transform .35s ease;
+
+      /* mobile scroll sanity */
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+    .page.is-active{
+      opacity:1;
+      transform:none;
+      pointer-events:auto;
+    }
+
+    .page__inner{
+      max-width:1000px;
+      margin:0 auto;
+    }
+
+    h2{
+      margin:0 0 14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:18px;
+      color:rgba(255,255,255,.9);
+    }
+
+    /* === Home === */
+    .hero{
+      height:calc(100vh - 220px);
+      display:flex;
+      align-items:center;
+      padding-left:40px;
+    }
+
+    .hero__title{
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:400;
+      font-size:clamp(72px,8vw,120px);
+      letter-spacing:.12em;
+      margin:0;
+      color:rgba(255,255,255,.90);
+      text-shadow: 0 2px 18px rgba(0,0,0,.55);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* === Merch === */
+    .merchIntro{
+      max-width:80ch;
+      margin:0 0 14px;
+      color:rgba(255,255,255,.82);
+      line-height:1.65;
+      font-size:13px;
+    }
+
+    .merchGrid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+      margin-top:10px;
+    }
+
+    .merchCard{
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:160px;
+    }
+
+    .merchTitle{
+      margin:0;
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:16px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      color:rgba(255,255,255,.92);
+      line-height:1.05;
+    }
+
+    .merchDesc{
+      margin:0;
+      color:rgba(255,255,255,.78);
+      line-height:1.6;
+      font-size:13px;
+      flex:1;
+    }
+
+    .merchBtn{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.88);
+      text-decoration:none;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      width:max-content;
+    }
+    .merchBtn:hover{
+      background:rgba(255,255,255,.06);
+      color:#fff;
+    }
+
+    .merchMeta{
+      font-size:11px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.03em;
+    }
+
+    /* === Music layout === */
+    .musicList{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      margin-top:10px;
+    }
+
+    .album{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    /* cover */
+    .album__coverLink{
+      flex:0 0 auto;
+      display:block;
+      width: clamp(160px, 24vw, 260px);
+      aspect-ratio: 1 / 1;
+      overflow:hidden;
+      cursor:default;
+      pointer-events:none; /* cover is purely visual now */
+    }
+
+    .album__cover{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:contrast(1.05) brightness(.95);
+    }
+
+    .album__body{
+      padding:14px 14px 16px;
+      flex:1;
+      min-width:0;
+    }
+
+    .album__titleRow{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .album__titleWrap{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      min-width:0;
+      flex:1;
+    }
+
+    .album__title{
+      margin:0;
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:18px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      color:rgba(255,255,255,.92);
+      line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .album__date{
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .album__cta{
+      font-size:11px;
+      opacity:.75;
+      text-decoration:none;
+      color:rgba(255,255,255,.85);
+      border-bottom:1px solid rgba(255,255,255,.22);
+      padding-bottom:2px;
+      white-space:nowrap;
+      background:transparent;
+      border-top:0;
+      border-left:0;
+      border-right:0;
+      cursor:pointer;
+    }
+    .album__cta:hover{ opacity:1; border-bottom-color:rgba(255,255,255,.6); }
+
+    .album__text{
+      margin:0;
+      color:rgba(255,255,255,.82);
+      line-height:1.6;
+      font-size:13px;
+    }
+    .album__text p{ margin:0 0 10px; }
+    .album__text p:last-child{ margin-bottom:0; }
+
+    /* platforms row */
+    .platforms{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:8px 0 0;
+      scroll-margin-top: 120px;
+    }
+    .platforms__label{
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.58);
+      white-space:nowrap;
+    }
+    .platform{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.86);
+      text-decoration:none;
+      font-size:10px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      opacity:.92;
+      white-space:nowrap;
+    }
+    .platform:hover{
+      opacity:1;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border-color:rgba(255,255,255,.35);
+    }
+
+    /* === Videos === */
+    .videosWrap{ margin-top:10px; }
+
+    .filterBar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:0 0 14px;
+    }
+
+    .filterLabel{
+      font-size:11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.62);
+      white-space:nowrap;
+    }
+
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .filterBtn{
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.2);
+      color:rgba(255,255,255,.86);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+      opacity:.9;
+      white-space:nowrap;
+    }
+    .filterBtn:hover{ opacity:1; background:rgba(255,255,255,.06); }
+    .filterBtn.is-active{
+      border-color:rgba(255,255,255,.45);
+      color:#fff;
+      opacity:1;
+    }
+
+    .videosGrid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .vid{
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .vid__frame{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      background:#000;
+    }
+    .vid__frame iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    .vid__body{
+      padding:12px 12px 14px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .vid__title{
+      margin:0;
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:16px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      color:rgba(255,255,255,.92);
+      line-height:1.05;
+    }
+
+    .vid__link{
+      font-size:11px;
+      opacity:.75;
+      text-decoration:none;
+      color:rgba(255,255,255,.85);
+      border-bottom:1px solid rgba(255,255,255,.22);
+      padding-bottom:2px;
+      white-space:nowrap;
+    }
+    .vid__link:hover{ opacity:1; border-bottom-color:rgba(255,255,255,.6); }
+
+    .moreVideos{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+    }
+    .moreVideos a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.88);
+      text-decoration:none;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .moreVideos a:hover{
+      background:rgba(255,255,255,.06);
+      color:#fff;
+    }
+
+    /* About box */
+    .about{
+      max-width:80ch;
+      background:rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:14px;
+      padding:16px;
+      box-shadow:var(--shadow);
+    }
+    .about p{ color:rgba(255,255,255,.82); line-height:1.7; margin:0 0 12px; }
+    .about p:last-child{ margin-bottom:0; }
+
+    /* === Footer / socials === */
+    .footer{
+      position:fixed;
+      bottom:calc(var(--pad) + env(safe-area-inset-bottom));
+      left:calc(var(--pad) + env(safe-area-inset-left));
+      right:calc(var(--pad) + env(safe-area-inset-right));
+      z-index:3;
+      background:linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,0));
+      padding:14px 0 10px;
+      pointer-events:none;
+    }
+
+    .footer__inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      font-size:12px;
+      color:rgba(255,255,255,.6);
+      pointer-events:auto;
+      text-align:center;
+    }
+
+    /* ✅ One-row socials bar (scrolls if needed) */
+    .socials{
+      display:flex;
+      gap:12px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
+      justify-content:center;
+      max-width:100%;
+      padding-bottom:2px;
+    }
+    .socials::-webkit-scrollbar{ height:0; }
+
+    .social{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.85);
+      text-decoration:none;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      pointer-events:auto;
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .social:hover{
+      background:rgba(255,255,255,.06);
+      color:#fff;
+    }
+
+    .social svg{
+      width:14px;
+      height:14px;
+      display:block;
+      fill:currentColor;
+      opacity:.92;
+    }
+
+    .legal{
+      max-width:1000px;
+      margin:0 auto;
+      font-size:10px;
+      line-height:1.35;
+      letter-spacing:.02em;
+      color:rgba(255,255,255,.45);
+      text-wrap:balance;
+    }
+
+    @media(max-width:900px){
+      .merchGrid{ grid-template-columns:1fr; }
+    }
+
+    @media(max-width:800px){
+      .album__coverLink{ width: clamp(140px, 34vw, 220px); }
+      .videosGrid{ grid-template-columns:1fr; }
+    }
+
+    @media(max-width:640px){
+      .hero{ padding-left:18px; }
+
+      .nav{
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        gap:8px;
+        justify-content:flex-end;
+        white-space:nowrap;
+      }
+      .nav::-webkit-scrollbar{ height:0; }
+
+      .nav__link{
+        flex:0 0 auto;
+        font-size:11px;
+        padding:6px 10px;
+        border-radius:999px;
+      }
+
+      .topbar{ gap:10px; }
+      .brand__text{ font-size:22px; }
+
+      /* ✅ FIX: Stop album cover going nuclear on mobile */
+      .album{ flex-direction:column; }
+      .album__coverLink{
+        width:100%;
+        max-width:none;
+        aspect-ratio: 1 / 1;       /* keep it square */
+        max-height: 340px;         /* hard cap */
+      }
+      .album__cover{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
+      .page{
+        padding:
+          calc(92px + env(safe-area-inset-top))
+          14px
+          calc(240px + env(safe-area-inset-bottom));
+      }
+
+      .filters{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        gap:8px;
+        padding-bottom:2px;
+      }
+      .filters::-webkit-scrollbar{ height:0; }
+      .filterBtn{ flex:0 0 auto; padding:7px 10px; }
+
+      /* ✅ MOBILE FIX: streaming links become a tidy grid (no cropping/chaos) */
+      .platforms{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+        overflow:visible;
+        padding-bottom:0;
+        margin-top:10px;
+      }
+      .platforms__label{
+        grid-column:1 / -1;
+        margin-bottom:2px;
+      }
+      .platform{
+        width:100%;
+        padding:8px 10px;
+        font-size:11px;
+        white-space:normal;
+      }
+    }
   </style>
 </head>
 
 <body>
 
   <div class="bg" id="bg">
-    <video id="bgVideo" autoplay muted loop playsinline preload="metadata">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
       <source src="bg.mp4" type="video/mp4" />
     </video>
     <div class="bg__shade"></div>
   </div>
 
   <header class="topbar">
-    <a class="brand" href="#home" data-nav="home"><span class="brand__text">TIVEY</span></a>
+    <button class="brand" data-nav="home"><span class="brand__text">TIVEY</span></button>
     <nav class="nav" id="topNav">
-      <a class="nav__link" href="#music" data-nav="music">Music</a>
-      <a class="nav__link" href="#videos" data-nav="videos">Videos</a>
-      <a class="nav__link" href="#about" data-nav="about">About</a>
-      <a class="nav__link" href="#merch" data-nav="merch">Merch</a>
+      <button class="nav__link" data-nav="music">Music</button>
+      <button class="nav__link" data-nav="videos">Videos</button>
+      <button class="nav__link" data-nav="about">About</button>
+      <button class="nav__link" data-nav="merch">Merch</button>
     </nav>
   </header>
 
-  <!-- BODY + SCRIPT CONTINUES UNCHANGED -->
+  <main class="viewport">
+    <section class="page is-active" data-page="home">
+      <div class="hero">
+        <h1 class="hero__title">TIVEY</h1>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section class="page" data-page="music">
+      <div class="page__inner">
+        <h2>Music</h2>
+
+        <div class="musicList">
+
+          <!-- Anomaly In The Static (NEW) -->
+          <article class="album">
+            <a class="album__coverLink" href="#" onclick="return false;">
+              <img class="album__cover" src="website album 3.jpg" alt="Anomaly In The Static cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Anomaly In The Static</h3>
+                  <span class="album__date">2026</span>
+                </div>
+                <span class="album__cta" style="border-bottom:0;opacity:.55;cursor:default;">Coming 2026</span>
+              </div>
+              <div class="album__text">
+                <p>Anomaly In The Static is the next chapter — sharper edges, bigger hooks, and that same grimy bloodstream underneath. It’s built to feel like a transmission that shouldn’t exist: melody fighting distortion, clarity fighting noise, and everything slightly out of place in the best way.</p>
+                <p>More details (and links) will land here as the release locks in.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bliss -->
+          <article class="album">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Bliss cover">
+              <img class="album__cover" src="website album 2.jpg" alt="Bliss cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Bliss</h3>
+                  <span class="album__date">31 Oct 2024</span>
+                </div>
+              </div>
+
+              <div class="platforms" aria-label="Bliss links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=davyw2KJTnWEH_K373Clqg" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0DJK2YQQ1" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/391591142" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
+              <div class="album__text">
+                <p>Bliss represents a shift — not away from heaviness, but toward control. Where Subsistence is immediate and confrontational, Bliss is more deliberate, more spacious, and more reflective. It was written during a period of distance from the initial pressure that fuelled earlier work, allowing space for structure, restraint, and atmosphere to take a more central role.</p>
+                <p>Sonically, Bliss expands the palette. The guitars remain heavy, but they are more patient, often allowing silence and texture to do as much work as distortion. There is a greater focus on mood, layering, and pacing, with tracks unfolding rather than striking all at once. Vocals become more haunting and melodic, often sitting within the music rather than fighting against it. The aggression is still present, but it is measured — purposeful rather than reactive.</p>
+                <p>Emotionally, the album is more introspective. Rather than documenting endurance, Bliss explores aftermath: what remains once the noise fades, when anger gives way to reflection. There is vulnerability here, but it’s quieter, less confrontational. The record often feels suspended between calm and unease, never fully settling into either — a tension that defines much of its character.</p>
+                <p>Bliss doesn’t replace Subsistence; it responds to it. Together, the two records mark an evolution from raw necessity to conscious expression. Where the former captures survival, the latter captures awareness. In that sense, Bliss is not a departure, but a refinement — the same core voice, speaking more slowly, with more control, and less urgency, but no less weight.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Subsistence -->
+          <article class="album">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Subsistence cover">
+              <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Subsistence</h3>
+                  <span class="album__date">24 Nov 2023</span>
+                </div>
+              </div>
+
+              <div class="platforms" aria-label="Subsistence links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=LxbXTSeVQMu2PzlhobfSYw" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/album/subsistence/1715149277" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0CMMSTJKT" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/326954118" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
+              <div class="album__text">
+                <p>Subsistence is a record born out of necessity rather than ambition. It wasn’t written to chase momentum, build an audience, or define a sound — it was written because the songs needed somewhere to go. At the time, making music wasn’t about presentation or cohesion; it was about survival, expression, and expelling pressure before it collapsed inward.</p>
+                <p>Stylistically, Subsistence leans heavily into rawness. The guitars are abrasive and direct, often down-tuned and unpolished, carrying more weight than finesse. Vocals sit somewhere between restraint and eruption, less concerned with clarity than with truth. There’s little interest in smoothing edges — mistakes, noise, and rough transitions are left intact, giving the album a sense of immediacy and unease. It sounds lived-in because it was.</p>
+                <p>Lyrically and emotionally, the album reflects a period of confinement and endurance. Themes of isolation, fatigue, persistence, and quiet defiance run through the tracks, not as statements but as observations. There is anger, but it is inward-facing; frustration, but without theatrics. The record documents a mindset rather than a narrative — the act of getting through, one day at a time.</p>
+                <p>In retrospect, Subsistence stands as the foundation of what would later be recognised as The Tivey Sound. Not because it defines it neatly, but because it establishes the core principles: honesty over polish, atmosphere over perfection, and music as a necessity rather than a product. It is a record that exists because it had to.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bittersweet -->
+          <article class="album">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Bittersweet cover">
+              <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
+            </a>
+            <div class="album__body">
+              <div class="album__titleRow">
+                <div class="album__titleWrap">
+                  <h3 class="album__title">Bittersweet</h3>
+                  <span class="album__date">08 May 2022</span>
+                </div>
+              </div>
+
+              <div class="platforms" aria-label="Bittersweet links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=TMp0fnTRQqeOT7tOpHOhpw" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/search?term=lewis%20tivey%20bittersweet" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0BMFL1JH9" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/260445301" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
+              <div class="album__text">
+                <p>Bittersweet is the point of entry. As a four-track debut EP, it wasn’t conceived as a statement or a foundation for what followed — it was simply the first time the work was allowed to exist outside the room it was written in. The songs were created without long-term plans or stylistic intent, shaped more by instinct and circumstance than by any clear sense of direction.</p>
+                <p>Musically, the EP is rough and exploratory. Elements of alternative rock and grunge surface clearly, but they are not yet fully formed or consciously integrated. The production is minimal, sometimes fragile, with arrangements that feel tentative rather than assertive. That uncertainty is part of its character. The tracks move between melody and distortion, calm and tension, without fully committing to either, reflecting an artist still testing the boundaries of expression.</p>
+                <p>Emotionally, Bittersweet captures contradiction. There is softness alongside frustration, reflection alongside unease. The writing often feels caught between wanting to hold onto moments and wanting to escape them, giving the EP its name and its tone. Rather than confronting its themes head-on, the record circles them, observing from a distance, as if unsure how much to reveal.</p>
+                <p>In hindsight, Bittersweet functions less as a finished work and more as a sketchbook — an early document of instincts that would later harden into identity.</p>
+                <p>As a debut, Bittersweet doesn’t attempt to define The Tivey Sound. Instead, it quietly introduces it — incomplete, unresolved, and honest. It remains an important piece of the catalogue not because of what it achieves, but because of what it begins.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="page" data-page="videos">
+      <div class="page__inner">
+        <h2>Videos</h2>
+
+        <div class="videosWrap">
+
+          <div class="filterBar">
+            <span class="filterLabel">Filter:</span>
+            <div class="filters" id="videoFilters">
+              <button class="filterBtn is-active" data-filter="ALL">All</button>
+              <button class="filterBtn" data-filter="Anomaly In The Static">Anomaly In The Static</button>
+              <button class="filterBtn" data-filter="Bliss">Bliss</button>
+              <button class="filterBtn" data-filter="Subsistence">Subsistence</button>
+              <button class="filterBtn" data-filter="Bittersweet">Bittersweet</button>
+            </div>
+          </div>
+
+          <div class="videosGrid" id="videosGrid">
+
+            <!-- =========================
+                 Anomaly In The Static
+                 ========================= -->
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/XONxaiZ8YYM"
+                  title="Tivey — Bleach My Halo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Bleach My Halo</h3>
+                <a class="vid__link" href="https://youtu.be/XONxaiZ8YYM" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/BQKpcHxnHbM"
+                  title="Tivey — Whatchamacallit"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Whatchamacallit</h3>
+                <a class="vid__link" href="https://youtu.be/BQKpcHxnHbM" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Anomaly In The Static">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Fs3pG9mN6aA"
+                  title="Tivey — Through The Looking Glass"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Through The Looking Glass</h3>
+                <a class="vid__link" href="https://youtu.be/Fs3pG9mN6aA" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Bliss
+                 ========================= -->
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VKTDFuB_dh4"
+                  title="Tivey — NaySay"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">NaySay</h3>
+                <a class="vid__link" href="https://youtu.be/VKTDFuB_dh4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/wNb0m2_FqLY"
+                  title="Tivey — Living The Dream"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Living The Dream</h3>
+                <a class="vid__link" href="https://youtu.be/wNb0m2_FqLY" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/bb59hgtVoYw"
+                  title="Tivey — If You Please"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">If You Please</h3>
+                <a class="vid__link" href="https://youtu.be/bb59hgtVoYw" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/MSQcz6hN1X4"
+                  title="Tivey — Renegade"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Renegade</h3>
+                <a class="vid__link" href="https://youtu.be/MSQcz6hN1X4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/1jI3QIHNmnA"
+                  title="Tivey — Quote The Raven"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Quote The Raven</h3>
+                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/VTcyqyxKJm4"
+                  title="Tivey — Clandesdine"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Clandesdine</h3>
+                <a class="vid__link" href="https://youtu.be/VTcyqyxKJm4" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bliss">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/m5a51vehYb0"
+                  title="Tivey — Kajillion"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Kajillion</h3>
+                <a class="vid__link" href="https://youtu.be/m5a51vehYb0" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Subsistence
+                 ========================= -->
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/Vb_bnvKovBE"
+                  title="Tivey — Alien Nation"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Alien Nation</h3>
+                <a class="vid__link" href="https://youtu.be/Vb_bnvKovBE" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/I3V8IE9A5Bo"
+                  title="Tivey — Ozone"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Ozone</h3>
+                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo"
+                  target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/GT-iMDkMVDQ"
+                  title="Tivey — NEVER BETTER"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">NEVER BETTER</h3>
+                <a class="vid__link" href="https://youtu.be/GT-iMDkMVDQ" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Subsistence">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/il9Vk5yacoU"
+                  title="Tivey — Let It Rain"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Let It Rain</h3>
+                <a class="vid__link" href="https://youtu.be/il9Vk5yacoU" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <!-- =========================
+                 Bittersweet
+                 ========================= -->
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/9aODNNn63Sc"
+                  title="Tivey — Friendly Neighbourhood Infiltrator"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Friendly Neighbourhood Infiltrator</h3>
+                <a class="vid__link" href="https://youtu.be/9aODNNn63Sc" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/SE6kcLwgyPE"
+                  title="Tivey — Seed You"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Seed You</h3>
+                <a class="vid__link" href="https://youtu.be/SE6kcLwgyPE" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+            <article class="vid" data-album="Bittersweet">
+              <div class="vid__frame">
+                <iframe
+                  src="https://www.youtube.com/embed/oQR8nuWojPo"
+                  title="Tivey — Flock"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>
+              </div>
+              <div class="vid__body">
+                <h3 class="vid__title">Flock</h3>
+                <a class="vid__link" href="https://youtu.be/oQR8nuWojPo" target="_blank" rel="noreferrer">YouTube</a>
+              </div>
+            </article>
+
+          </div>
+
+          <div class="moreVideos">
+            <a href="https://www.youtube.com/@lewistivey/videos" target="_blank" rel="noreferrer">More videos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="about">
+      <div class="page__inner">
+        <h2>About</h2>
+        <div class="about">
+          <img src="Tiv about pic.jpg" alt="Lewis Tivey portrait" style="width:100%;max-width:360px;border-radius:14px;margin:16px 0;border:1px solid rgba(255,255,255,.15);" />
+          <p>Lewis Tivey is an independent alternative rock artist whose work exists somewhere between melody and abrasion, order and collapse. Writing, recording, producing, and releasing his music independently, Tivey operates outside scenes, trends, and algorithms, favouring instinct, atmosphere, and emotional honesty over polish or commercial expectation.</p>
+          <p>His sound blends heavy, down-tuned guitars with haunting vocal lines, bursts of raw noise, and moments of quiet vulnerability. Influences are felt rather than quoted—grunge, alternative rock, doom, and experimental textures bleed into one another, forming what has come to be recognised as The Tivey Sound: chaotic, heavy, and expressive, but always anchored by melody. It is music built to feel lived-in, imperfect, and human.</p>
+          <p>Tivey’s catalogue spans multiple releases, including albums and singles that chart a gradual evolution from stripped-back aggression to more layered, reflective work. While early material leans heavily into grit and confrontation, later releases reveal a growing focus on atmosphere, structure, and restraint—without losing the raw edge that defines his identity.</p>
+          <p>Visually, his work carries the same philosophy. Album artwork, videos, and promotional material favour stark imagery, high contrast, and a grunge-noir aesthetic that mirrors the music’s emotional weight. Nothing exists purely for decoration; everything serves mood, memory, or meaning.</p>
+          <p>This site serves as an archive of that work: the music, the visuals, and the fragments left behind. What matters is not when it was made, but that it exists at all.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MERCH -->
+    <section class="page" data-page="merch">
+      <div class="page__inner">
+        <h2>Merch</h2>
+        <p class="merchIntro">
+          Physical media, stickers, shirts, and digital downloads. This is the cleanest way to support the work directly.
+        </p>
+
+        <div class="merchGrid">
+          <article class="merchCard">
+            <h3 class="merchTitle">Elasticstage</h3>
+            <p class="merchDesc">Physical media — CDs, vinyl, and official releases.</p>
+            <a class="merchBtn" href="https://elasticstage.com/lewistivey" target="_blank" rel="noreferrer">Open Elasticstage</a>
+            <div class="merchMeta">Physical / collector</div>
+          </article>
+
+          <article class="merchCard">
+            <h3 class="merchTitle">Sticker Mule</h3>
+            <p class="merchDesc">Stickers, shirts, and random grimy little artefacts.</p>
+            <a class="merchBtn" href="https://www.stickermule.com/lewistivey" target="_blank" rel="noreferrer">Open Sticker Mule</a>
+            <div class="merchMeta">Stickers / tees</div>
+          </article>
+
+          <article class="merchCard">
+            <h3 class="merchTitle">Bandcamp</h3>
+            <p class="merchDesc">Digital downloads (and often the best place for direct support).</p>
+            <a class="merchBtn" href="https://lewistivey.bandcamp.com/" target="_blank" rel="noreferrer">Open Bandcamp</a>
+            <div class="merchMeta">Digital / direct</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="socials">
+        <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer" aria-label="Spotify">
+          <!-- Spotify -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.59 14.53a.75.75 0 0 1-1.03.25c-2.82-1.73-6.38-2.12-10.58-1.16a.75.75 0 1 1-.33-1.46c4.6-1.05 8.54-.6 11.69 1.33.35.2.46.66.25 1.04zm1.47-2.73a.9.9 0 0 1-1.24.3c-3.23-1.98-8.15-2.56-11.95-1.4a.9.9 0 1 1-.52-1.72c4.34-1.32 9.74-.68 13.47 1.61.42.26.55.81.24 1.21zm.12-2.86C14.5 8.6 8.55 8.44 5.05 9.5a1 1 0 0 1-.58-1.92c4.02-1.22 10.7-1.04 14.97 1.45a1 1 0 0 1-1.25 1.61z"/></svg>
+          Spotify
+        </a>
+
+        <a class="social" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer" aria-label="Apple Music">
+          <!-- Apple Music (simple note icon) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a1 1 0 0 1 1 1v10.4a3.6 3.6 0 1 1-2-3.25V7.1l-7 1.75V16.4a3.6 3.6 0 1 1-2-3.25V7.5a1 1 0 0 1 .76-.97l10-2.5A1 1 0 0 1 17 3z"/></svg>
+          Apple Music
+        </a>
+
+        <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <!-- Instagram -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5zM18 6.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+          Instagram
+        </a>
+
+        <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer" aria-label="Facebook">
+          <!-- Facebook -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.87.24-1.46 1.5-1.46H16.7V5.1c-.3-.04-1.33-.12-2.52-.12-2.5 0-4.2 1.52-4.2 4.32V11H7.3v3H10v8h3.5z"/></svg>
+          Facebook
+        </a>
+
+        <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer" aria-label="YouTube">
+          <!-- YouTube -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.2 31.2 0 0 0 2 12a31.2 31.2 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 22 12a31.2 31.2 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+          YouTube
+        </a>
+
+        <a class="social" href="https://x.com/TiveyLewis" target="_blank" rel="noreferrer" aria-label="X">
+          <!-- X -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.5l-5.1-6.6L5.7 22H2.6l7.3-8.4L1 2h6.7l4.6 6l5.6-6zM17 19.1h1.8L7 4.8H5.1L17 19.1z"/></svg>
+          X
+        </a>
+      </div>
+
+      <span>© <span id="year"></span> Tivey</span>
+
+      <div class="legal">
+        © 2026 Lewis Tivey. All music, videos, artwork, imagery, and written content on this site are the intellectual property of Lewis Tivey unless otherwise stated. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const pages=[...document.querySelectorAll(".page")];
+    const bg=document.getElementById("bg");
+    const bgVideo=document.getElementById("bgVideo");
+    const topNav=document.getElementById("topNav");
+    document.getElementById("year").textContent=new Date().getFullYear();
+    let current="home",anim=false;
+
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+    function resetPageScroll(){
+      const active = document.querySelector(".page.is-active");
+      if(active) active.scrollTop = 0;
+      window.scrollTo(0,0);
+    }
+
+    function resetTopNavScroll(){
+      if(topNav) topNav.scrollLeft = 0;
+    }
+
+    function tryPlayBgVideo(){
+      if(!bgVideo) return;
+      bgVideo.muted = true;
+      bgVideo.playsInline = true;
+      bgVideo.setAttribute("playsinline","");
+      bgVideo.setAttribute("muted","");
+      bgVideo.setAttribute("autoplay","");
+      const p = bgVideo.play();
+      if(p && typeof p.catch === "function"){
+        p.catch(()=>{});
+      }
+    }
+
+    window.addEventListener("load", ()=>{
+      tryPlayBgVideo();
+      resetTopNavScroll();
+      resetPageScroll();
+    }, {passive:true});
+
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
+    });
+
+    ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
+      document.addEventListener(evt, ()=>{
+        if(current==="home") tryPlayBgVideo();
+      }, {passive:true});
+    });
+
+    ["pause","stalled","suspend","ended"].forEach(evt=>{
+      bgVideo?.addEventListener(evt, ()=>{
+        if(current==="home") tryPlayBgVideo();
+      });
+    });
+
+    function show(page){
+      pages.forEach(p=>p.classList.remove("is-active"));
+
+      if(page==="gallery") page="home";
+
+      const next=pages.find(p=>p.dataset.page===page) || pages.find(p=>p.dataset.page==="home");
+      next.classList.add("is-active");
+      current=next.dataset.page;
+
+      bg.style.display = current==="home" ? "block" : "none";
+      if(current==="home") tryPlayBgVideo();
+
+      history.replaceState(null,"","#"+current);
+
+      requestAnimationFrame(()=>{
+        resetTopNavScroll();
+        resetPageScroll();
+      });
+    }
+
+    function navTo(to){
+      if(anim) return;
+      anim=true;
+      show(to);
+      setTimeout(()=>anim=false,260);
+    }
+
+    document.addEventListener("click",e=>{
+      const b=e.target.closest("[data-nav]");
+      if(b) navTo(b.dataset.nav);
+    });
+
+    const start=(location.hash||"#home").replace("#","");
+    show(start);
+
+    window.addEventListener("hashchange", ()=>{
+      show((location.hash||"#home").replace("#",""));
+    });
+
+    const filterWrap = document.getElementById("videoFilters");
+    const allVids = [...document.querySelectorAll(".vid[data-album]")];
+
+    function setFilter(name){
+      const buttons = [...filterWrap.querySelectorAll(".filterBtn")];
+      buttons.forEach(btn => btn.classList.toggle("is-active", btn.dataset.filter===name));
+      allVids.forEach(card=>{
+        const album = card.dataset.album;
+        const show = (name==="ALL") || (album===name);
+        card.style.display = show ? "" : "none";
+      });
+      requestAnimationFrame(()=>resetPageScroll());
+    }
+
+    filterWrap?.addEventListener("click", (e)=>{
+      const btn = e.target.closest(".filterBtn");
+      if(!btn) return;
+      setFilter(btn.dataset.filter);
+    });
+
+    setFilter("ALL");
+  </script>
+
+</body>
+</html>
