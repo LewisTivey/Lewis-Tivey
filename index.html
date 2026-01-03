@@ -359,6 +359,44 @@
     .album__text p{ margin:0 0 10px; }
     .album__text p:last-child{ margin-bottom:0; }
 
+    /* NEW: album platform links row */
+    .platforms{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:8px 0 0;
+    }
+    .platforms__label{
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.58);
+      white-space:nowrap;
+    }
+    .platform{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.86);
+      text-decoration:none;
+      font-size:10px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      opacity:.92;
+      white-space:nowrap;
+    }
+    .platform:hover{
+      opacity:1;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border-color:rgba(255,255,255,.35);
+    }
+
     /* === Videos === */
     .videosWrap{ margin-top:10px; }
 
@@ -639,6 +677,14 @@
       }
       .filters::-webkit-scrollbar{ height:0; }
       .filterBtn{ flex:0 0 auto; padding:7px 10px; }
+
+      /* platforms row behaves nicely on mobile too */
+      .platforms{
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        padding-bottom:2px;
+      }
+      .platforms::-webkit-scrollbar{ height:0; }
     }
   </style>
 </head>
@@ -699,7 +745,7 @@
 
           <!-- Bliss -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=CNsvquZ8R5Cf3iEoQuFBuA" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=davyw2KJTnWEH_K373Clqg" target="_blank" rel="noreferrer">
               <img class="album__cover" src="website album 2.jpg" alt="Bliss cover" />
             </a>
             <div class="album__body">
@@ -708,8 +754,18 @@
                   <h3 class="album__title">Bliss</h3>
                   <span class="album__date">31 Oct 2024</span>
                 </div>
-                <a class="album__cta" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=CNsvquZ8R5Cf3iEoQuFBuA" target="_blank" rel="noreferrer">Open in Spotify</a>
+                <a class="album__cta" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=davyw2KJTnWEH_K373Clqg" target="_blank" rel="noreferrer">Open in Spotify</a>
               </div>
+
+              <!-- NEW: platforms -->
+              <div class="platforms" aria-label="Bliss links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/6ddksmWBpvTweONoUz3HZs?si=davyw2KJTnWEH_K373Clqg" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0DJK2YQQ1" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/391591142" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
               <div class="album__text">
                 <p>Bliss represents a shift — not away from heaviness, but toward control. Where Subsistence is immediate and confrontational, Bliss is more deliberate, more spacious, and more reflective. It was written during a period of distance from the initial pressure that fuelled earlier work, allowing space for structure, restraint, and atmosphere to take a more central role.</p>
                 <p>Sonically, Bliss expands the palette. The guitars remain heavy, but they are more patient, often allowing silence and texture to do as much work as distortion. There is a greater focus on mood, layering, and pacing, with tracks unfolding rather than striking all at once. Vocals become more haunting and melodic, often sitting within the music rather than fighting against it. The aggression is still present, but it is measured — purposeful rather than reactive.</p>
@@ -721,7 +777,7 @@
 
           <!-- Subsistence -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=LxbXTSeVQMu2PzlhobfSYw" target="_blank" rel="noreferrer">
               <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
             </a>
             <div class="album__body">
@@ -730,8 +786,18 @@
                   <h3 class="album__title">Subsistence</h3>
                   <span class="album__date">24 Nov 2023</span>
                 </div>
-                <a class="album__cta" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=t944XSkDTW6_GoFkegbr1w" target="_blank" rel="noreferrer">Open in Spotify</a>
+                <a class="album__cta" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=LxbXTSeVQMu2PzlhobfSYw" target="_blank" rel="noreferrer">Open in Spotify</a>
               </div>
+
+              <!-- NEW: platforms -->
+              <div class="platforms" aria-label="Subsistence links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/4pIPr36rKbzU609dkmh7NS?si=LxbXTSeVQMu2PzlhobfSYw" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/album/subsistence/1715149277" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0CMMSTJKT" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/326954118" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
               <div class="album__text">
                 <p>Subsistence is a record born out of necessity rather than ambition. It wasn’t written to chase momentum, build an audience, or define a sound — it was written because the songs needed somewhere to go. At the time, making music wasn’t about presentation or cohesion; it was about survival, expression, and expelling pressure before it collapsed inward.</p>
                 <p>Stylistically, Subsistence leans heavily into rawness. The guitars are abrasive and direct, often down-tuned and unpolished, carrying more weight than finesse. Vocals sit somewhere between restraint and eruption, less concerned with clarity than with truth. There’s little interest in smoothing edges — mistakes, noise, and rough transitions are left intact, giving the album a sense of immediacy and unease. It sounds lived-in because it was.</p>
@@ -743,7 +809,7 @@
 
           <!-- Bittersweet -->
           <article class="album">
-            <a class="album__coverLink" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">
+            <a class="album__coverLink" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=TMp0fnTRQqeOT7tOpHOhpw" target="_blank" rel="noreferrer">
               <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
             </a>
             <div class="album__body">
@@ -752,8 +818,18 @@
                   <h3 class="album__title">Bittersweet</h3>
                   <span class="album__date">08 May 2022</span>
                 </div>
-                <a class="album__cta" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=HKTF-Mm1QVC8pSBhEUlfBQ" target="_blank" rel="noreferrer">Open in Spotify</a>
+                <a class="album__cta" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=TMp0fnTRQqeOT7tOpHOhpw" target="_blank" rel="noreferrer">Open in Spotify</a>
               </div>
+
+              <!-- NEW: platforms -->
+              <div class="platforms" aria-label="Bittersweet links">
+                <span class="platforms__label">Listen on:</span>
+                <a class="platform" href="https://open.spotify.com/album/5JUqU0F6sPbBkLZ2iSnwwx?si=TMp0fnTRQqeOT7tOpHOhpw" target="_blank" rel="noreferrer">Spotify</a>
+                <a class="platform" href="https://music.apple.com/gb/search?term=lewis%20tivey%20bittersweet" target="_blank" rel="noreferrer">Apple Music</a>
+                <a class="platform" href="https://music.amazon.com/albums/B0BMFL1JH9" target="_blank" rel="noreferrer">Amazon Music</a>
+                <a class="platform" href="https://tidal.com/album/260445301" target="_blank" rel="noreferrer">Tidal</a>
+              </div>
+
               <div class="album__text">
                 <p>Bittersweet is the point of entry. As a four-track debut EP, it wasn’t conceived as a statement or a foundation for what followed — it was simply the first time the work was allowed to exist outside the room it was written in. The songs were created without long-term plans or stylistic intent, shaped more by instinct and circumstance than by any clear sense of direction.</p>
                 <p>Musically, the EP is rough and exploratory. Elements of alternative rock and grunge surface clearly, but they are not yet fully formed or consciously integrated. The production is minimal, sometimes fragile, with arrangements that feel tentative rather than assertive. That uncertainty is part of its character. The tracks move between melody and distortion, calm and tension, without fully committing to either, reflecting an artist still testing the boundaries of expression.</p>
