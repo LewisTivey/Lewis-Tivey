@@ -1,12 +1,10 @@
-
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tivey — Official</title>
-  <meta name="description" content="Tivey — music, videos, gallery, and info." />
+  <meta name="description" content="Tivey — music, videos, and info." />
 
   <!-- ✅ Google Search Console verification -->
   <meta name="google-site-verification" content="ahXHwhEQxUxQkdmzkJIBRJA3bVZ_ft_DQaQ4B5wljrk" />
@@ -17,7 +15,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Tivey" />
   <meta property="og:title" content="Tivey — Official" />
-  <meta property="og:description" content="Tivey — music, videos, gallery, and info." />
+  <meta property="og:description" content="Tivey — music, videos, and info." />
   <meta property="og:url" content="https://lewistivey.com/" />
   <meta property="og:image" content="https://lewistivey.com/Page-Preview.jpg" />
   <meta property="og:image:secure_url" content="https://lewistivey.com/Page-Preview.jpg" />
@@ -26,7 +24,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Tivey — Official" />
-  <meta name="twitter:description" content="Tivey — music, videos, gallery, and info." />
+  <meta name="twitter:description" content="Tivey — music, videos, and info." />
   <meta name="twitter:image" content="https://lewistivey.com/Page-Preview.jpg" />
 
   <style>
@@ -148,6 +146,11 @@
       transform:translateX(12%);
       pointer-events:none;
       transition:opacity .35s ease, transform .35s ease;
+
+      /* mobile scroll sanity */
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
     }
     .page.is-active{
       opacity:1;
@@ -283,14 +286,15 @@
       overflow:hidden;
     }
 
-    /* clickable cover */
+    /* cover */
     .album__coverLink{
       flex:0 0 auto;
       display:block;
       width: clamp(160px, 24vw, 260px);
       aspect-ratio: 1 / 1;
       overflow:hidden;
-      cursor:pointer;
+      cursor:default;
+      pointer-events:none; /* cover is purely visual now */
     }
 
     .album__cover{
@@ -641,7 +645,6 @@
       }
 
       .topbar{ gap:10px; }
-      .page{ -webkit-overflow-scrolling: touch; }
       .brand__text{ font-size:22px; }
 
       .album{ flex-direction:column; }
@@ -684,12 +687,25 @@
       .filters::-webkit-scrollbar{ height:0; }
       .filterBtn{ flex:0 0 auto; padding:7px 10px; }
 
+      /* ✅ MOBILE FIX: streaming links become a tidy grid (no cropping/chaos) */
       .platforms{
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-        padding-bottom:2px;
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+        overflow:visible;
+        padding-bottom:0;
+        margin-top:10px;
       }
-      .platforms::-webkit-scrollbar{ height:0; }
+      .platforms__label{
+        grid-column:1 / -1;
+        margin-bottom:2px;
+      }
+      .platform{
+        width:100%;
+        padding:8px 10px;
+        font-size:11px;
+        white-space:normal;
+      }
     }
   </style>
 </head>
@@ -705,10 +721,9 @@
 
   <header class="topbar">
     <button class="brand" data-nav="home"><span class="brand__text">TIVEY</span></button>
-    <nav class="nav">
+    <nav class="nav" id="topNav">
       <button class="nav__link" data-nav="music">Music</button>
       <button class="nav__link" data-nav="videos">Videos</button>
-      <button class="nav__link" data-nav="gallery">Gallery</button>
       <button class="nav__link" data-nav="about">About</button>
       <button class="nav__link" data-nav="merch">Merch</button>
     </nav>
@@ -750,7 +765,7 @@
 
           <!-- Bliss -->
           <article class="album">
-            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Bliss - listen options">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Bliss cover">
               <img class="album__cover" src="website album 2.jpg" alt="Bliss cover" />
             </a>
             <div class="album__body">
@@ -759,7 +774,7 @@
                   <h3 class="album__title">Bliss</h3>
                   <span class="album__date">31 Oct 2024</span>
                 </div>
-                <button class="album__cta" type="button" onclick="scrollToPlatforms(this)">Listen</button>
+                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Bliss links">
@@ -781,7 +796,7 @@
 
           <!-- Subsistence -->
           <article class="album">
-            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Subsistence - listen options">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Subsistence cover">
               <img class="album__cover" src="website album 1.jpg" alt="Subsistence cover" />
             </a>
             <div class="album__body">
@@ -790,7 +805,7 @@
                   <h3 class="album__title">Subsistence</h3>
                   <span class="album__date">24 Nov 2023</span>
                 </div>
-                <button class="album__cta" type="button" onclick="scrollToPlatforms(this)">Listen</button>
+                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Subsistence links">
@@ -812,7 +827,7 @@
 
           <!-- Bittersweet -->
           <article class="album">
-            <a class="album__coverLink" href="#" onclick="scrollToPlatforms(this); return false;" aria-label="Bittersweet - listen options">
+            <a class="album__coverLink" href="#" onclick="return false;" aria-label="Bittersweet cover">
               <img class="album__cover" src="website album 0.jpg" alt="Bittersweet cover" />
             </a>
             <div class="album__body">
@@ -821,7 +836,7 @@
                   <h3 class="album__title">Bittersweet</h3>
                   <span class="album__date">08 May 2022</span>
                 </div>
-                <button class="album__cta" type="button" onclick="scrollToPlatforms(this)">Listen</button>
+                <!-- ✅ removed redundant Listen button -->
               </div>
 
               <div class="platforms" aria-label="Bittersweet links">
@@ -1051,7 +1066,8 @@
               </div>
               <div class="vid__body">
                 <h3 class="vid__title">Ozone</h3>
-                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo" target="_blank" rel="noreferrer">YouTube</a>
+                <a class="vid__link" href="https://youtu.be/I3V8IE9A5Bo"
+                  target="_blank" rel="noreferrer">YouTube</a>
               </div>
             </article>
 
@@ -1142,8 +1158,6 @@
       </div>
     </section>
 
-    <section class="page" data-page="gallery"><div class="page__inner"><h2>Gallery</h2></div></section>
-
     <section class="page" data-page="about">
       <div class="page__inner">
         <h2>About</h2>
@@ -1213,21 +1227,20 @@
     const pages=[...document.querySelectorAll(".page")];
     const bg=document.getElementById("bg");
     const bgVideo=document.getElementById("bgVideo");
+    const topNav=document.getElementById("topNav");
     document.getElementById("year").textContent=new Date().getFullYear();
     let current="home",anim=false;
 
-    // ✅ stop the "starts halfway down" bug on mobile:
-    // - ensure every page starts at the top when shown
-    // - prevent browser from restoring old scroll position
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
     function resetPageScroll(){
-      // make sure the active page container is at top
       const active = document.querySelector(".page.is-active");
       if(active) active.scrollTop = 0;
-
-      // also nudge window to top (some mobile browsers do weird stuff)
       window.scrollTo(0,0);
+    }
+
+    function resetTopNavScroll(){
+      if(topNav) topNav.scrollLeft = 0;  // ✅ fixes "opens halfway scrolled" nav
     }
 
     function tryPlayBgVideo(){
@@ -1245,7 +1258,7 @@
 
     window.addEventListener("load", ()=>{
       tryPlayBgVideo();
-      // initial load: force top so it doesn't open halfway through on mobile
+      resetTopNavScroll();
       resetPageScroll();
     }, {passive:true});
 
@@ -1267,6 +1280,10 @@
 
     function show(page){
       pages.forEach(p=>p.classList.remove("is-active"));
+
+      // guard: if someone visits old #gallery link, send them home
+      if(page==="gallery") page="home";
+
       const next=pages.find(p=>p.dataset.page===page) || pages.find(p=>p.dataset.page==="home");
       next.classList.add("is-active");
       current=next.dataset.page;
@@ -1274,14 +1291,15 @@
       bg.style.display = current==="home" ? "block" : "none";
       if(current==="home") tryPlayBgVideo();
 
-      // update hash (without scroll jumping)
       history.replaceState(null,"","#"+current);
 
-      // always start pages at top (fixes "loads halfway" on mobile)
-      requestAnimationFrame(()=>resetPageScroll());
+      requestAnimationFrame(()=>{
+        resetTopNavScroll();
+        resetPageScroll();
+      });
     }
 
-    function nav(to){
+    function navTo(to){
       if(anim) return;
       anim=true;
       show(to);
@@ -1290,7 +1308,7 @@
 
     document.addEventListener("click",e=>{
       const b=e.target.closest("[data-nav]");
-      if(b) nav(b.dataset.nav);
+      if(b) navTo(b.dataset.nav);
     });
 
     const start=(location.hash||"#home").replace("#","");
@@ -1311,8 +1329,6 @@
         const show = (name==="ALL") || (album===name);
         card.style.display = show ? "" : "none";
       });
-
-      // after filtering, keep the page anchored at top (mobile can jump)
       requestAnimationFrame(()=>resetPageScroll());
     }
 
@@ -1323,16 +1339,6 @@
     });
 
     setFilter("ALL");
-
-    /* "Listen" and cover click -> scroll to the platforms row inside that album */
-    function scrollToPlatforms(el){
-      const album = el.closest(".album");
-      if(!album) return;
-      const platforms = album.querySelector(".platforms");
-      if(!platforms) return;
-      platforms.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    window.scrollToPlatforms = scrollToPlatforms;
   </script>
 
 </body>
