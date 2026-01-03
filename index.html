@@ -6,6 +6,9 @@
   <title>Tivey — Official</title>
   <meta name="description" content="Tivey — music, videos, gallery, and info." />
 
+  <!-- ✅ Google Search Console verification -->
+  <meta name="google-site-verification" content="ahXHwhEQxUxQkdmzkJIBRJA3bVZ_ft_DQaQ4B5wljrk" />
+
   <!-- =========================
        SOCIAL PREVIEW (LINK UNFURL)
        ========================= -->
@@ -983,7 +986,8 @@
               </div>
               <div class="vid__body">
                 <h3 class="vid__title">Quote The Raven</h3>
-                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA" target="_blank" rel="noreferrer">YouTube</a>
+                <a class="vid__link" href="https://youtu.be/1jI3QIHNmnA"
+                   target="_blank" rel="noreferrer">YouTube</a>
               </div>
             </article>
 
@@ -1211,6 +1215,20 @@
     document.getElementById("year").textContent=new Date().getFullYear();
     let current="home",anim=false;
 
+    // ✅ stop the "starts halfway down" bug on mobile:
+    // - ensure every page starts at the top when shown
+    // - prevent browser from restoring old scroll position
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+    function resetPageScroll(){
+      // make sure the active page container is at top
+      const active = document.querySelector(".page.is-active");
+      if(active) active.scrollTop = 0;
+
+      // also nudge window to top (some mobile browsers do weird stuff)
+      window.scrollTo(0,0);
+    }
+
     function tryPlayBgVideo(){
       if(!bgVideo) return;
       bgVideo.muted = true;
@@ -1224,15 +1242,22 @@
       }
     }
 
-    window.addEventListener("load", tryPlayBgVideo, {passive:true});
+    window.addEventListener("load", ()=>{
+      tryPlayBgVideo();
+      // initial load: force top so it doesn't open halfway through on mobile
+      resetPageScroll();
+    }, {passive:true});
+
     document.addEventListener("visibilitychange", ()=>{
       if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
     });
+
     ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
       document.addEventListener(evt, ()=>{
         if(current==="home") tryPlayBgVideo();
       }, {passive:true});
     });
+
     ["pause","stalled","suspend","ended"].forEach(evt=>{
       bgVideo?.addEventListener(evt, ()=>{
         if(current==="home") tryPlayBgVideo();
@@ -1248,7 +1273,11 @@
       bg.style.display = current==="home" ? "block" : "none";
       if(current==="home") tryPlayBgVideo();
 
+      // update hash (without scroll jumping)
       history.replaceState(null,"","#"+current);
+
+      // always start pages at top (fixes "loads halfway" on mobile)
+      requestAnimationFrame(()=>resetPageScroll());
     }
 
     function nav(to){
@@ -1265,7 +1294,10 @@
 
     const start=(location.hash||"#home").replace("#","");
     show(start);
-    window.addEventListener("hashchange", ()=>show((location.hash||"#home").replace("#","")));
+
+    window.addEventListener("hashchange", ()=>{
+      show((location.hash||"#home").replace("#",""));
+    });
 
     const filterWrap = document.getElementById("videoFilters");
     const allVids = [...document.querySelectorAll(".vid[data-album]")];
@@ -1278,6 +1310,9 @@
         const show = (name==="ALL") || (album===name);
         card.style.display = show ? "" : "none";
       });
+
+      // after filtering, keep the page anchored at top (mobile can jump)
+      requestAnimationFrame(()=>resetPageScroll());
     }
 
     filterWrap?.addEventListener("click", (e)=>{
