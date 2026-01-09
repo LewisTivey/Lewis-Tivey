@@ -1332,7 +1332,12 @@
       bg.style.display = current==="home" ? "block" : "none";
       if(current==="home") tryPlayBgVideo();
 
-      history.replaceState(null,"","#"+current);
+     if(current === "home"){
+  history.replaceState(null, "", "/");
+} else {
+  history.replaceState(null, "", "#"+current);
+}
+
 
       requestAnimationFrame(()=>{
         resetTopNavScroll();
