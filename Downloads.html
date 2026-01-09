@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="favicon-32.png">
+
+  <title>Tivey — Downloads</title>
+  <meta name="description" content="Download Tivey albums directly. Optional support via Bandcamp / donations." />
+
+  <!-- Social preview (optional but nice) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tivey" />
+  <meta property="og:title" content="Tivey — Downloads" />
+  <meta property="og:description" content="Direct downloads. Optional support. Music that survives platforms." />
+  <meta property="og:url" content="https://lewistivey.com/downloads.html" />
+  <meta property="og:image" content="https://lewistivey.com/Page-Preview.jpg" />
+
+  <style>
+    @font-face{
+      font-family:"Eordeoghlakat";
+      src:
+        url("./Eordeoghlakat.woff2") format("woff2"),
+        url("./Eordeoghlakat.woff") format("woff"),
+        url("./Eordeoghlakat.ttf") format("truetype");
+      font-weight:400;
+      font-style:normal;
+      font-display:block;
+    }
+
+    :root{
+      --bg:#000;
+      --ink:#f2f2f2;
+      --hairline:rgba(255,255,255,.12);
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.55);
+      --pad:clamp(10px,2.5vw,18px);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:#000;
+      color:var(--ink);
+      overflow:hidden;
+    }
+
+    /* Background video */
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:#000;
+    }
+    .bg video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:contrast(1.06) brightness(1.02) saturate(1.02);
+    }
+    .bg__shade{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(80% 60% at 50% 30%, rgba(0,0,0,.06), rgba(0,0,0,.78)),
+        linear-gradient(to bottom, rgba(0,0,0,.22), rgba(0,0,0,.78));
+    }
+
+    /* Top bar */
+    .topbar{
+      position:fixed;
+      top:calc(var(--pad) + env(safe-area-inset-top));
+      left:calc(var(--pad) + env(safe-area-inset-left));
+      right:calc(var(--pad) + env(safe-area-inset-right));
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:4;
+      gap:12px;
+    }
+
+    .brand{
+      background:none;
+      border:0;
+      cursor:pointer;
+      padding:6px 8px;
+      text-decoration:none;
+    }
+    .brand__text{
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-size:24px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.88);
+      text-shadow: 0 1px 1px rgba(0,0,0,.75);
+      line-height:1;
+    }
+
+    .nav{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav__link{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.20);
+      color:rgba(255,255,255,.92);
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:13px;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      cursor:pointer;
+      opacity:.88;
+      white-space:nowrap;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav__link:hover{ opacity:1; }
+
+    /* Page */
+    .page{
+      position:fixed;
+      inset:0;
+      padding:
+        calc(96px + env(safe-area-inset-top))
+        18px
+        calc(40px + env(safe-area-inset-bottom));
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+    }
+
+    .page__inner{
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    h2{
+      margin:0 0 14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:18px;
+      color:rgba(255,255,255,.9);
+    }
+
+    .panel{
+      background:rgba(0,0,0,.45);
+      border:1px solid var(--hairline);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+
+    .panel p{
+      margin:0 0 12px;
+      color:rgba(255,255,255,.82);
+      line-height:1.75;
+      font-size:13px;
+    }
+    .panel p:last-child{ margin-bottom:0; }
+
+    .downloadsList{
+      margin-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .downloadItem{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+    }
+
+    .downloadTitle{
+      font-family:"Eordeoghlakat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:400;
+      font-size:14px;
+      color:rgba(255,255,255,.92);
+      margin:0;
+    }
+
+    .downloadBtns{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.86);
+      text-decoration:none;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      opacity:.92;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      opacity:1;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border-color:rgba(255,255,255,.35);
+    }
+
+    .legal{
+      margin-top:12px;
+      font-size:10px;
+      line-height:1.35;
+      letter-spacing:.02em;
+      color:rgba(255,255,255,.45);
+      text-wrap:balance;
+      text-align:center;
+    }
+
+    @media(max-width:640px){
+      .nav{
+        flex-wrap:nowrap !important;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        gap:8px;
+        justify-content:flex-end;
+        white-space:nowrap;
+      }
+      .nav::-webkit-scrollbar{ height:0; }
+      .nav__link{
+        flex:0 0 auto;
+        font-size:11px;
+        padding:6px 10px;
+      }
+      .brand__text{ font-size:22px; }
+      .page{
+        padding:
+          calc(92px + env(safe-area-inset-top))
+          14px
+          calc(40px + env(safe-area-inset-bottom));
+      }
+      .downloadItem{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .downloadBtns{
+        width:100%;
+        justify-content:flex-start;
+      }
+      .btn{ width:100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg" id="bg">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+      <source src="bg.mp4" type="video/mp4" />
+    </video>
+    <div class="bg__shade"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html#home" aria-label="Back to home">
+      <span class="brand__text">TIVEY</span>
+    </a>
+
+    <nav class="nav">
+      <a class="nav__link" href="index.html#music">Music</a>
+      <a class="nav__link" href="index.html#videos">Videos</a>
+      <a class="nav__link" href="index.html#about">About</a>
+      <a class="nav__link" href="index.html#merch">Merch</a>
+      <a class="nav__link" href="downloads.html" aria-current="page">Downloads</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <div class="page__inner">
+      <h2>Downloads</h2>
+
+      <div class="panel">
+        <p>I’ve put my albums here so you can download them directly.</p>
+
+        <p>This is still my work. It’s not public domain. It exists on Spotify, Bandcamp, and the usual machines. If you support it there, that helps. If you don’t, the world will keep turning.</p>
+
+        <p>But, I don’t want the music locked behind paywalls or algorithms that decide whether it deserves to exist. Some things are worth more than metrics.</p>
+
+        <p>Words are limited. They break down pretty quickly once you get past small talk. Music doesn’t have that problem. It carries the stuff you can’t explain without sounding stupid or dramatic. Call it empathy. Call it something spiritual. Call it noise that happens to mean something. Same thing.</p>
+
+        <p>When I was younger, certain bands reached me when people couldn’t. They didn’t save me. They didn’t give answers. They just sat there with me while things were rough. That was enough.</p>
+
+        <p>That’s all this is trying to do.</p>
+
+        <p>If one of these records finds you at the right time, take it. Sit with it. If you want to support the work, you can donate or buy the albums elsewhere. If you can’t, that’s fine. No guilt, no speech.</p>
+
+        <p>I just want the music to survive.<br>
+        And to end up where it’s supposed to.</p>
+
+        <p>— Lewis Tivey</p>
+      </div>
+
+      <!-- Album download links (add when ready) -->
+      <div class="downloadsList">
+        <!-- Example items — replace ZIP paths when you upload them -->
+        <!--
+        <div class="downloadItem">
+          <h3 class="downloadTitle">Bliss</h3>
+          <div class="downloadBtns">
+            <a class="btn" href="downloads/Bliss.zip">Download</a>
+            <a class="btn" href="https://lewistivey.bandcamp.com/" target="_blank" rel="noreferrer">Bandcamp</a>
+          </div>
+        </div>
+        -->
+      </div>
+
+      <div class="legal">
+        © <span id="year"></span> Lewis Tivey. All rights reserved.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // keep the bg video alive on mobile browsers
+    const bgVideo = document.getElementById("bgVideo");
+    function tryPlay(){
+      if(!bgVideo) return;
+      bgVideo.muted = true;
+      bgVideo.playsInline = true;
+      const p = bgVideo.play();
+      if(p && typeof p.catch === "function") p.catch(()=>{});
+    }
+    window.addEventListener("load", tryPlay, {passive:true});
+    ["touchstart","click","pointerdown"].forEach(evt=>{
+      document.addEventListener(evt, tryPlay, {passive:true});
+    });
+  </script>
+
+</body>
+</html>
