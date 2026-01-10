@@ -1229,7 +1229,8 @@
 
   <footer class="footer">
     <div class="footer__inner">
-      <div class="socials">
+      <div class="socials" id="socials">
+
         <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer" aria-label="Spotify">
           <!-- Spotify -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.59 14.53a.75.75 0 0 1-1.03.25c-2.82-1.73-6.38-2.12-10.58-1.16a.75.75 0 1 1-.33-1.46c4.6-1.05 8.54-.6 11.69 1.33.35.2.46.66.25 1.04zm1.47-2.73a.9.9 0 0 1-1.24.3c-3.23-1.98-8.15-2.56-11.95-1.4a.9.9 0 1 1-.52-1.72c4.34-1.32 9.74-.68 13.47 1.61.42.26.55.81.24 1.21zm.12-2.86C14.5 8.6 8.55 8.44 5.05 9.5a1 1 0 0 1-.58-1.92c4.02-1.22 10.7-1.04 14.97 1.45a1 1 0 0 1-1.25 1.61z"/></svg>
@@ -1395,6 +1396,20 @@
     });
 
     setFilter("ALL");
+    // --- iOS Safari horizontal scroll reset (safe patch) ---
+window.addEventListener("pageshow", () => {
+  const socials = document.getElementById("socials");
+  const topNav = document.getElementById("topNav");
+
+  if (socials) socials.scrollLeft = 0;
+  if (topNav) topNav.scrollLeft = 0;
+
+  requestAnimationFrame(() => {
+    if (socials) socials.scrollLeft = 0;
+    if (topNav) topNav.scrollLeft = 0;
+  });
+});
+
   </script>
 
 </body>
