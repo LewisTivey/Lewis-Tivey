@@ -667,6 +667,9 @@
         border-radius:999px;
       }
 
+      /* ✅ hide the CURRENT tab on mobile only */
+      .nav__link.is-hide-mobile{ display:none; }
+
       .topbar{ gap:10px; }
       .brand__text{ font-size:22px; }
 
@@ -893,7 +896,7 @@
           </div>
 
           <div class="videosGrid" id="videosGrid">
-
+            <!-- (videos unchanged) -->
             <!-- =========================
                  Anomaly In The Static
                  ========================= -->
@@ -942,9 +945,7 @@
               </div>
             </article>
 
-            <!-- =========================
-                 Bliss
-                 ========================= -->
+            <!-- Bliss -->
             <article class="vid" data-album="Bliss">
               <div class="vid__frame">
                 <iframe
@@ -1050,9 +1051,7 @@
               </div>
             </article>
 
-            <!-- =========================
-                 Subsistence
-                 ========================= -->
+            <!-- Subsistence -->
             <article class="vid" data-album="Subsistence">
               <div class="vid__frame">
                 <iframe
@@ -1114,9 +1113,7 @@
               </div>
             </article>
 
-            <!-- =========================
-                 Bittersweet
-                 ========================= -->
+            <!-- Bittersweet -->
             <article class="vid" data-album="Bittersweet">
               <div class="vid__frame">
                 <iframe
@@ -1314,26 +1311,43 @@
       }
     }
 
+    /* ✅ NEW: hide the current nav tab on mobile (music/videos/about/merch only) */
+    function updateMobileNavHidden(){
+      const hideOnMobile = new Set(["music","videos","about","merch"]);
+      const navBtns = [...document.querySelectorAll('.nav__link[data-nav]')];
+
+      navBtns.forEach(btn => btn.classList.remove("is-hide-mobile"));
+
+      if(hideOnMobile.has(current)){
+        const activeBtn = navBtns.find(btn => btn.dataset.nav === current);
+        if(activeBtn) activeBtn.classList.add("is-hide-mobile");
+      }
+    }
+
     window.addEventListener("load", ()=>{
       tryPlayBgVideo();
       resetTopNavScroll();
       resetHorizontalScroll();
       resetPageScroll();
+      updateMobileNavHidden();
     }, {passive:true});
 
     window.addEventListener("pageshow", ()=>{
       resetTopNavScroll();
       resetHorizontalScroll();
+      updateMobileNavHidden();
     }, {passive:true});
 
     window.addEventListener("orientationchange", ()=>{
       resetTopNavScroll();
       resetHorizontalScroll();
+      updateMobileNavHidden();
     }, {passive:true});
 
     document.addEventListener("visibilitychange", ()=>{
       if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
       resetHorizontalScroll();
+      updateMobileNavHidden();
     });
 
     ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
@@ -1365,6 +1379,8 @@
       } else {
         history.replaceState(null, "", "#"+current);
       }
+
+      updateMobileNavHidden();
 
       requestAnimationFrame(()=>{
         resetTopNavScroll();
