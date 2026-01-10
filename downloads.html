@@ -102,6 +102,11 @@
       white-space:nowrap;
     }
 
+    /* 🔥 Hide Downloads tab ON THIS PAGE ONLY */
+    .nav a[href="downloads.html"]{
+      display:none;
+    }
+
     /* Page */
     .page{
       position:fixed;
@@ -181,52 +186,12 @@
       color:rgba(255,255,255,.45);
     }
 
-    /* =========================
-       MOBILE FIX (this is the key)
-       ========================= */
-    @media (max-width: 640px){
-  .topbar{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:8px;
-  }
-
-  .nav{
-    width:100%;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-
-  .nav a{
-    font-size:11px;
-    padding:7px 12px;
-    /* Hide Downloads button when already on Downloads page */
-.nav a[href="downloads.html"]{
-  display:none;
-}
-
-  }
-
-  .page{
-    padding:130px 16px 40px;
-  }
-
-  .downloadItem{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
-
-
-      .nav{
-        width:100%;
-        flex-wrap:wrap;
+    /* Mobile */
+    @media (max-width:640px){
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
         gap:8px;
-      }
-
-      .nav a{
-        font-size:11px;
-        padding:7px 12px;
       }
 
       .page{
@@ -268,38 +233,23 @@
 
       <div class="panel">
         <p>I’ve put my albums here so you can download them directly.</p>
-        <p>This is still my work. It’s not public domain. It exists on Spotify, Bandcamp, and the usual machines. If you support it there, that helps. If you don’t, the world will keep turning.</p>
-        <p>But I don’t want the music locked behind paywalls or algorithms that decide whether it deserves to exist. Some things are worth more than metrics.</p>
-        <p>Words are limited. They break down pretty quickly once you get past small talk. Music doesn’t have that problem.</p>
-        <p>When I was younger, certain bands reached me when people couldn’t. They didn’t save me. They didn’t give answers. They just sat there with me while things were rough.</p>
-        <p>I just want the music to survive. And to end up where it’s supposed to.</p>
+        <p>This is still my work. It’s not public domain. It exists on Spotify, Bandcamp, and the usual machines.</p>
+        <p>I don’t want the music locked behind paywalls or algorithms.</p>
         <p>— Lewis Tivey</p>
       </div>
 
       <h2 style="margin-top:22px;">Albums</h2>
 
       <div class="downloadsList">
-
         <div class="downloadItem">
           <div class="downloadTitle">Bliss — 2024</div>
-          <a class="btn"
-             href="https://drive.google.com/uc?export=download&id=1IYx4CtpdLp72otCnXXlRJCciaYAfijjl"
-             target="_blank"
-             rel="noreferrer">
-            Download (MP3 ZIP)
-          </a>
+          <a class="btn" href="https://drive.google.com/uc?export=download&id=1IYx4CtpdLp72otCnXXlRJCciaYAfijjl">Download (MP3 ZIP)</a>
         </div>
 
         <div class="downloadItem">
           <div class="downloadTitle">Subsistence — 2023</div>
-          <a class="btn"
-             href="https://drive.google.com/uc?export=download&id=1EcVxLannoKqW4jt75sP8TSHSOQeTtO0-"
-             target="_blank"
-             rel="noreferrer">
-            Download (MP3 ZIP)
-          </a>
+          <a class="btn" href="https://drive.google.com/uc?export=download&id=1EcVxLannoKqW4jt75sP8TSHSOQeTtO0-">Download (MP3 ZIP)</a>
         </div>
-
       </div>
 
       <div class="legal">
@@ -315,4 +265,3 @@
 
 </body>
 </html>
-
