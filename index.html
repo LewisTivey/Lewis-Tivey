@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="favicon-32.png">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="favicon-32.png">
   <link rel="alternate" href="https://lewistivey.com/index-seo.html" />
 
@@ -61,19 +59,14 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
+    /* ✅ FIXED: no nested body{} (Safari was choking on this) */
     body{
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:#000;
       color:var(--ink);
-      body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:#000;
-  color:var(--ink);
-  overflow:hidden;
-}
-
+      overflow:hidden;
     }
 
     /* === Background video === */
@@ -749,7 +742,6 @@
       <button class="nav__link" data-nav="about">About</button>
       <button class="nav__link" data-nav="merch">Merch</button>
       <a class="nav__link" href="downloads.html">Downloads</a>
-
     </nav>
   </header>
 
@@ -1232,37 +1224,31 @@
       <div class="socials" id="socials">
 
         <a class="social" href="https://open.spotify.com/artist/6rMQpa1tR5sI8xGboy8mXR" target="_blank" rel="noreferrer" aria-label="Spotify">
-          <!-- Spotify -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.59 14.53a.75.75 0 0 1-1.03.25c-2.82-1.73-6.38-2.12-10.58-1.16a.75.75 0 1 1-.33-1.46c4.6-1.05 8.54-.6 11.69 1.33.35.2.46.66.25 1.04zm1.47-2.73a.9.9 0 0 1-1.24.3c-3.23-1.98-8.15-2.56-11.95-1.4a.9.9 0 1 1-.52-1.72c4.34-1.32 9.74-.68 13.47 1.61.42.26.55.81.24 1.21zm.12-2.86C14.5 8.6 8.55 8.44 5.05 9.5a1 1 0 0 1-.58-1.92c4.02-1.22 10.7-1.04 14.97 1.45a1 1 0 0 1-1.25 1.61z"/></svg>
           Spotify
         </a>
 
         <a class="social" href="https://music.apple.com/gb/artist/lewis-tivey/1622318795" target="_blank" rel="noreferrer" aria-label="Apple Music">
-          <!-- Apple Music (simple note icon) -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a1 1 0 0 1 1 1v10.4a3.6 3.6 0 1 1-2-3.25V7.1l-7 1.75V16.4a3.6 3.6 0 1 1-2-3.25V7.5a1 1 0 0 1 .76-.97l10-2.5A1 1 0 0 1 17 3z"/></svg>
           Apple Music
         </a>
 
         <a class="social" href="https://www.instagram.com/lewis_tivey/" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <!-- Instagram -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5zM18 6.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
           Instagram
         </a>
 
         <a class="social" href="https://www.facebook.com/LewisTiveyofficial" target="_blank" rel="noreferrer" aria-label="Facebook">
-          <!-- Facebook -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.87.24-1.46 1.5-1.46H16.7V5.1c-.3-.04-1.33-.12-2.52-.12-2.5 0-4.2 1.52-4.2 4.32V11H7.3v3H10v8h3.5z"/></svg>
           Facebook
         </a>
 
         <a class="social" href="https://www.youtube.com/@lewistivey" target="_blank" rel="noreferrer" aria-label="YouTube">
-          <!-- YouTube -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.2 31.2 0 0 0 2 12a31.2 31.2 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 22 12a31.2 31.2 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
           YouTube
         </a>
 
         <a class="social" href="https://x.com/TiveyLewis" target="_blank" rel="noreferrer" aria-label="X">
-          <!-- X -->
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.5l-5.1-6.6L5.7 22H2.6l7.3-8.4L1 2h6.7l4.6 6l5.6-6zM17 19.1h1.8L7 4.8H5.1L17 19.1z"/></svg>
           X
         </a>
@@ -1296,6 +1282,25 @@
       if(topNav) topNav.scrollLeft = 0;
     }
 
+    /* ✅ Safari hammer: reset horizontal scroll positions reliably */
+    function resetHorizontalScroll(){
+      const socials = document.getElementById("socials");
+      const topNavEl = document.getElementById("topNav");
+
+      [topNavEl, socials].forEach(el => {
+        if(!el) return;
+        el.scrollLeft = 0;
+        if (typeof el.scrollTo === "function") el.scrollTo({ left: 0, behavior: "auto" });
+      });
+
+      requestAnimationFrame(() => {
+        [topNavEl, socials].forEach(el => { if(el) el.scrollLeft = 0; });
+        requestAnimationFrame(() => {
+          [topNavEl, socials].forEach(el => { if(el) el.scrollLeft = 0; });
+        });
+      });
+    }
+
     function tryPlayBgVideo(){
       if(!bgVideo) return;
       bgVideo.muted = true;
@@ -1312,11 +1317,23 @@
     window.addEventListener("load", ()=>{
       tryPlayBgVideo();
       resetTopNavScroll();
+      resetHorizontalScroll();
       resetPageScroll();
+    }, {passive:true});
+
+    window.addEventListener("pageshow", ()=>{
+      resetTopNavScroll();
+      resetHorizontalScroll();
+    }, {passive:true});
+
+    window.addEventListener("orientationchange", ()=>{
+      resetTopNavScroll();
+      resetHorizontalScroll();
     }, {passive:true});
 
     document.addEventListener("visibilitychange", ()=>{
       if(document.visibilityState==="visible" && current==="home") tryPlayBgVideo();
+      resetHorizontalScroll();
     });
 
     ["touchstart","click","scroll","pointerdown"].forEach(evt=>{
@@ -1343,15 +1360,15 @@
       bg.style.display = current==="home" ? "block" : "none";
       if(current==="home") tryPlayBgVideo();
 
-     if(current === "home"){
-  history.replaceState(null, "", "/");
-} else {
-  history.replaceState(null, "", "#"+current);
-}
-
+      if(current === "home"){
+        history.replaceState(null, "", "/");
+      } else {
+        history.replaceState(null, "", "#"+current);
+      }
 
       requestAnimationFrame(()=>{
         resetTopNavScroll();
+        resetHorizontalScroll();
         resetPageScroll();
       });
     }
@@ -1396,20 +1413,6 @@
     });
 
     setFilter("ALL");
-    // --- iOS Safari horizontal scroll reset (safe patch) ---
-window.addEventListener("pageshow", () => {
-  const socials = document.getElementById("socials");
-  const topNav = document.getElementById("topNav");
-
-  if (socials) socials.scrollLeft = 0;
-  if (topNav) topNav.scrollLeft = 0;
-
-  requestAnimationFrame(() => {
-    if (socials) socials.scrollLeft = 0;
-    if (topNav) topNav.scrollLeft = 0;
-  });
-});
-
   </script>
 
 </body>
